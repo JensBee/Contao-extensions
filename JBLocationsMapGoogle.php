@@ -64,15 +64,6 @@ class JBLocationsMapGoogle extends JBLocationsMap {
 	protected $boolHasMapTypeSwitch = true;
 
 	/*
-	 * Constructor
-	 * @param Id for this map
-	 */
-	function __construct($intMapId=0) {
-		parent::__construct();
-		$this->intMapId = $intMapId;
-	}
-
-	/*
 	 * Get the Google-Maps id
 	 * @return string Google-Maps id
 	 */
@@ -92,7 +83,9 @@ class JBLocationsMapGoogle extends JBLocationsMap {
 	public function getMapCode($strTemplate='jbloc_imap_google') {
 		$objTemplate = new FrontendTemplate($strTemplate);
 		$objTemplate->map = $this->arrCompiledMap;
-		$objTemplate->marker = $this->arrMapMarkers;
+		if ($this->boolShowExternalMarker || $this->boolShowMarker) {
+			$objTemplate->marker = $this->arrMapMarkers;
+		}
 		return $objTemplate->parse();
 	}
 }

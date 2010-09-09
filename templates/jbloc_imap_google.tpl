@@ -66,24 +66,26 @@
             $out.=$mapJs.'.addControl(new GMapTypeControl());';
           }
           // markers
-          $arrMarkerDetails = array();            
-          $out .= 'latlng = Array(); var latlngbounds = new GLatLngBounds();';
-          for($i = 0; $i < sizeof($this->marker); $i++){
-            $out .=
-              'var markerIcon = new GIcon(G_DEFAULT_ICON);'.
-              'markerIcon.image = "http://www.geocodezip.com/mapIcons/marker'.($i+1).'.png";'.
-              'marker = new GLatLng('.$this->marker[$i]['coords'].');'.
-              'latlng.push(new GMarker('.
-                'marker,'.
-                  '{icon:markerIcon}'.
-              '));'.
-              'latlngbounds.extend(marker);';
+          if ($this->map['markerMap']) {
+	        $arrMarkerDetails = array();            
+	        $out .= 'latlng = Array(); var latlngbounds = new GLatLngBounds();';
+	        for($i = 0; $i < sizeof($this->marker); $i++){
+	          $out .=
+	            'var markerIcon = new GIcon(G_DEFAULT_ICON);'.
+	            'markerIcon.image = "http://www.geocodezip.com/mapIcons/marker'.($i+1).'.png";'.
+	            'marker = new GLatLng('.$this->marker[$i]['coords'].');'.
+	            'latlng.push(new GMarker('.
+	              'marker,'.
+	                '{icon:markerIcon}'.
+	            '));'.
+	            'latlngbounds.extend(marker);';
+	        }
+	        $out .=
+	          'for (var i=0; i<latlng.length; i++) {'.
+	            $mapJs.'.addOverlay(latlng[i]);'.
+	          '}'.
+	          $mapJs.'.setCenter(latlngbounds.getCenter(), '.$mapJs.'.getBoundsZoomLevel(latlngbounds));';
           }
-          $out .=
-            'for (var i=0; i<latlng.length; i++) {'.
-              $mapJs.'.addOverlay(latlng[i]);'.
-            '}'.
-            $mapJs.'.setCenter(latlngbounds.getCenter(), '.$mapJs.'.getBoundsZoomLevel(latlngbounds));';
       $out.='}'; // GBrowserIsCompatible
     $out.='}'; // function load_
 

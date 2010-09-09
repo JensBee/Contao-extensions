@@ -132,14 +132,16 @@ class CalendarJBLocations extends JBLocations {
 				// check if we are on full event view, if so: render map
 				if (!$objTemplate->link) {					
 					$objMap = $this->generateMap($objTemplate->id, $objMapData->jblocations_map);					
-					$objMap->setAllowedMapTypes(array(JBLocationsMap::MAP_SATTELLITE));
+					//$objMap->setAllowedMapTypes(array(JBLocationsMap::MAP_SATTELLITE));
 					$objMap->setMapTypeSwitchAllowed(true);
 					$objMap->addMarkers($arrEventData['mapMarker']);
 					$objMap->compile();
 
 					$arrTemplateMap['code'] = $objMap->getMapCode();
 					$arrTemplateMap['data'] = $objMap->getMapData();
-					$arrTemplateMap['marker'] = $arrEventData['mapMarker'];
+					if ($objMap->boolShowMarker || $objMap->boolShowExternalMarker) {
+						$arrTemplateMap['marker'] = $arrEventData['mapMarker'];
+					}
 				}
 				$arrTemplateMap['url'] = $arrEventData['mapLink'];
 				$objTemplate->jblocations_map = $arrTemplateMap;

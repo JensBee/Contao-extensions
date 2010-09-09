@@ -97,7 +97,7 @@ class JBLocations extends Frontend {
      */
     public function dcaMapsOnLoad_mapTemplate($varValue, DataContainer $dc) {
         $strTpl = 'jbloc_imap_';
-        switch ($dc->__get('activeRecord')->provider) {
+        switch ($dc->activeRecord->provider) {
             case JBLocations::MAPPROVIDER_GOOGLE:
                 $strTpl .= 'google';
                 break;
@@ -123,7 +123,7 @@ class JBLocations extends Frontend {
      * @return String Current value passed on
      */
     public function dcaMapsOnLoad_mapTypes($varValue, DataContainer $dc) {
-        switch ($dc->__get('activeRecord')->provider) {
+        switch ($dc->activeRecord->provider) {
             case JBLocations::MAPPROVIDER_GOOGLE:
             	$map = new JBLocationsMapGoogle();
                 break;
@@ -165,7 +165,7 @@ class JBLocations extends Frontend {
     }
     
     /**
-     * Enter description here ...
+     * Query settings for this map
      * @param integer $intMapId The id for this map
      */
     protected function queryMapSettings($intMapId) {
@@ -233,21 +233,18 @@ class JBLocations extends Frontend {
         // generate map
         switch ($objMapData->provider) {
             case JBLocations::MAPPROVIDER_GOOGLE:
-                $objMap = new JBLocationsMapGoogle($intMapId);                
+                $objMap = new JBLocationsMapGoogle($intMapId, $objMapData);                
                 break;
             case JBLocations::MAPPROVIDER_MS:
-                $objMap = new JBLocationsMapMS($intMapId);
+                $objMap = new JBLocationsMapMS($intMapId, $objMapData);
                 break;
             case JBLocations::MAPPROVIDER_YAHOO:
-                $objMap = new JBLocationsMapYahoo($intMapId);
+                $objMap = new JBLocationsMapYahoo($intMapId, $objMapData);
                 break;
             case JBLocations::MAPPROVIDER_OSM:
-                $objMap = new JBLocationsMapOSM($intMapId);
+                $objMap = new JBLocationsMapOSM($intMapId, $objMapData);
                 break;
         }
-        $arrMapWidth = unserialize($objMapData->map_width);
-        $arrMapHeight = unserialize($objMapData->map_height);
-        $objMap->setSize($arrMapWidth['value'].$arrMapWidth['unit'], $arrMapHeight['value'].$arrMapHeight['unit']);        
         return $objMap;
     }
 }

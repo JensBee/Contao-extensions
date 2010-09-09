@@ -63,8 +63,14 @@ abstract class JBLocationsMap extends Frontend {
 	 * Id for this map
 	 * @var integer
 	 */
-    protected $intMapId = 0;
+    protected $intMapId;
 
+    /**
+     * Template for this map
+     * @var string Template name
+     */
+    protected $strMapTemplate;
+    
 	/**
 	 * Map width
 	 * @var string
@@ -77,6 +83,18 @@ abstract class JBLocationsMap extends Frontend {
 	 */
     protected $strMapHeight = '300px';	
 
+    /**
+     * Show markers on map?
+     * @var boolean
+     */
+    protected $boolShowMarker = true;
+    
+    /**
+     * Show external markers?
+     * @var boolean
+     */
+    protected $boolShowExternalMarker = true;
+    
   	/**
 	 * Should a map controller be used?
 	 * @var boolean default false
@@ -107,6 +125,12 @@ abstract class JBLocationsMap extends Frontend {
 	 */
     protected $boolMapAutoZoom = true;
 
+    /**
+	 * Map API Key
+	 * @var string
+	 */
+    protected $strMapKey;
+    
   	/**
 	 * Map language
 	 * @var string
@@ -117,19 +141,19 @@ abstract class JBLocationsMap extends Frontend {
 	 * Additional map code
 	 * @var string
 	 */
-    protected $strMapUserCode = '';
+    protected $strMapUserCode;
 
   	/**
 	 * Additional map url parameters
 	 * @var string
 	 */
-    protected $strMapURLParams = '';
+    protected $strMapURLParams;
 
 	/**
 	 * The default map zoom factor
 	 * @var integer
 	 */
-    protected $intMapZoom = 0;
+    protected $intMapZoom;
 
 	/**
 	 * The default map type to show
@@ -173,6 +197,56 @@ abstract class JBLocationsMap extends Frontend {
 	 */
     protected $arrMapMarkers = array();
 
+    /**
+     * Constructor
+     * @param $intMapId Id for this map
+     * @param $objMapData tl_jblocations_maps query result for this map
+     */
+    function __construct($intMapId=null, $objMapData=null) {	
+    	parent::__construct();
+    	if ($intMapId) {
+    		$this->intMapId = $intMapId;
+    	}
+    	if ($objMapData) {
+    		if ($objMapData->map_width) {
+    			$arrMapWidth = unserialize($objMapData->map_width);
+				$this->strMapWidth = $arrMapWidth['value'].$arrMapWidth['unit'];
+    		}
+    		if ($objMapData->map_height) {
+    			$arrMapHeight = unserialize($objMapData->map_height);
+				$this->strMapHeight = $arrMapHeight['value'].$arrMapHeight['unit'];
+    		}
+    		if ($objMapData->map_types) {
+	    		$this->arrAllowedMapTypes = array();
+	    		foreach (unserialize($objMapData->map_types) as $mt) {
+	    			array_push($this->arrAllowedMapTypes, preg_replace('/mt_/', '', $mt));
+	    		}
+    		}
+    		$this->strMapTemplate = $objMapData->map_template ? $objMapData->map_template : null;
+    		$this->boolShowMarker = $objMapData->markers_show ? true : false;
+    		$this->boolShowExternalMarker = $objMapData->markers_external_show ? true : false;      
+    	}
+    }
+    
+    /**
+	 * Return an attribute of this map
+	 * @param  string The property name
+	 * @return mixed The property value
+	 */
+	public function __get($strKey) {
+		switch ($strKey) {
+			case ('boolShowMarker'):
+				return $this->boolShowMarker;
+				break;
+			case ('boolShowExternalMarker'):
+				return $this->boolShowExternalMarker;
+				break;
+			default:
+				return null;
+				break;
+		}
+	}
+    
     /*
      * Get the Maps key, if theres one needed
      * @return string Maps key
@@ -202,25 +276,27 @@ abstract class JBLocationsMap extends Frontend {
         $arrMapTypes = array();
         foreach ($this->arrAllowedMapTypes as $intMapType) {
             if (isset($this->arrSupportedMapTypes[$intMapType])) {
-                array_push($arrMapTypes, $this->arrMapTypes[$intMapType]);
+                array_push($arrMapTypes, JBLocationsMap::$arrMapTypes[$intMapType]);
             }
         }
 
         $this->arrCompiledMap = array(
             'key'           => $this->getMapKey(),
-            'language'      => $this->strLanguage,
-            'id'            => $this->intMapId,
-            'mapTypeSwitch' => $this->boolUseMapTypeSwitch,
-            'mapTypes'      => $arrMapTypes,
+            'language'      => &$this->strLanguage,
+            'id'            => &$this->intMapId,
+            'mapTypeSwitch' => &$this->boolUseMapTypeSwitch,
+            'mapTypes'      => &$arrMapTypes,
             'GPS'           => ($this->boolUseGPSSensor === true) ? 'true' : 'false',
             'controller'    => ($this->boolUseMapController === true) ? 'true' : 'false',
-            'controllerType'=> $this->arrMapControlTypes[$this->intControllerType],
-            'userCode'      => $this->strMapUserCode,
-            'URLparams'     => $this->strMapURLParams,
-            'zoom'          => $this->intMapZoom,
-            'autoZoom'      => $this->boolMapAutoZoom,
-            'mapWidth'      => $this->strMapWidth,
-            'mapHeight'     => $this->strMapHeight,            
+            'controllerType'=> &JBLocationsMap::$arrMapControlTypes[$this->intControllerType],
+            'userCode'      => &$this->strMapUserCode,
+            'URLparams'     => &$this->strMapURLParams,
+            'zoom'          => &$this->intMapZoom,
+            'autoZoom'      => &$this->boolMapAutoZoom,
+            'mapWidth'      => &$this->strMapWidth,
+            'mapHeight'     => &$this->strMapHeight,
+        	'markerMap'		=> &$this->boolShowMarker,
+        	'markerExternal'=> &$this->boolShowExternalMarker,
         );
     }
 
@@ -230,7 +306,7 @@ abstract class JBLocationsMap extends Frontend {
      */
     public function setAllowedMapTypes($arrMapTypes) {
         foreach ($arrMapTypes as $intMapType) {
-            if (isset($this->arrMapTypes[$intMapType]) && !isset($this->arrAllowedMapTypes[$intMapTypes])) {
+            if (isset(JBLocationsMap::$arrMapTypes[$intMapType]) && !isset($this->arrAllowedMapTypes[$intMapTypes])) {
                 array_push($this->arrAllowedMapTypes, $intMapType);
             }
         }
@@ -262,16 +338,6 @@ abstract class JBLocationsMap extends Frontend {
      */
     public function addMarkers(&$arrMarkers) {
         $this->arrMapMarkers = $arrMarkers;
-    }
-    
-    /**
-     * Sets the size of this map
-     * @param string $strWidth Width value with unit
-     * @param string $strHeight Height value with unit
-     */
-    public function setSize($strWidth, $strHeight) {    	
-    	$this->strMapWidth = $strWidth;
-    	$this->strMapHeight = $strHeight;
     }
 }
 
