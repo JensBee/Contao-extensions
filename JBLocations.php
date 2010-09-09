@@ -43,7 +43,7 @@ class JBLocations extends Frontend {
     const MAPPROVIDER_MS        = 1; // bing maps
     const MAPPROVIDER_YAHOO     = 2; // yahoo maps
     const MAPPROVIDER_OSM       = 0; // open streetmap
-    protected $arrMapProvider = array(
+    public static $arrMapProvider = array(
         JBLocations::MAPPROVIDER_GOOGLE  => 'Google Maps',
         JBLocations::MAPPROVIDER_MS      => 'Bing Maps',
         JBLocations::MAPPROVIDER_YAHOO   => 'Yahoo Maps',
@@ -83,7 +83,8 @@ class JBLocations extends Frontend {
             );
             $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['provider']['options'] = array();
             foreach ($this->arrSupportedMapProviders as $mapProvider) {
-                $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['provider']['options'][$mapProvider] = $this->arrMapProvider[$mapProvider];
+                $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['provider']['options'][$mapProvider] = 
+                	JBLocations::$arrMapProvider[$mapProvider];
             }
         }
     }
@@ -92,26 +93,60 @@ class JBLocations extends Frontend {
      * Generate dynamic DCA for tl_jblocations_maps.map_template on load
      * @param String Current value
      * @param object DataContainer
+     * @return String Current value passed on
      */
     public function dcaMapsOnLoad_mapTemplate($varValue, DataContainer $dc) {
-        $arrTpl = array();
+        $strTpl = 'jbloc_imap_';
         switch ($dc->__get('activeRecord')->provider) {
             case JBLocations::MAPPROVIDER_GOOGLE:
-                $arrTpl = $this->getTemplateGroup('jbloc_imap_google');
+                $strTpl .= 'google';
                 break;
             case JBLocations::MAPPROVIDER_MS:
-                $arrTpl = $this->getTemplateGroup('jbloc_imap_bing');
+                $strTpl .= 'bing';
                 break;
             case JBLocations::MAPPROVIDER_YAHOO:
-                $arrTpl = $this->getTemplateGroup('jbloc_imap_yahoo');
+                $strTpl .= 'yahoo';
                 break;
             case JBLocations::MAPPROVIDER_OSM:
-                $arrTpl = $this->getTemplateGroup('jbloc_imap_osm');
+                $strTpl .= 'osm';
                 break;
         }
-        $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_template']['options'] = $arrTpl;
+        $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_template']['options'] = 
+        	$this->getTemplateGroup($strTpl);;
+        return $varValue;
     }
 
+    /**
+     * Generate dynamic DCA for tl_jblocations_maps.map_types on load
+     * @param String Current value
+     * @param object DataContainer
+     * @return String Current value passed on
+     */
+    public function dcaMapsOnLoad_mapTypes($varValue, DataContainer $dc) {
+        switch ($dc->__get('activeRecord')->provider) {
+            case JBLocations::MAPPROVIDER_GOOGLE:
+            	$map = new JBLocationsMapGoogle();
+                break;
+            case JBLocations::MAPPROVIDER_MS:
+                $map = new JBLocationsMapBing();
+                break;
+            case JBLocations::MAPPROVIDER_YAHOO:
+                $map = new JBLocationsMapYahoo();
+                break;
+            case JBLocations::MAPPROVIDER_OSM:
+				$map = new JBLocationsMapOSM();
+                break;
+        }
+        // create checkboxes        
+        foreach ($map->arrSupportedMapTypes as $intMapType) {
+        	$GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_types']['options']['mt_'.$intMapType] =
+        		$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_type_'. 
+        			JBLocationsMap::$arrMapTypes[$map->arrSupportedMapTypes[$intMapType]]
+        		];    	
+        }
+        return $varValue;
+    }
+    
     /**
      * Query for supported map providers. Sets $arrSupportedMapProviders
      */
@@ -127,6 +162,15 @@ class JBLocations extends Frontend {
         if ($arrMapProviders['jblocations_map_bing']) {
             array_push($this->arrSupportedMapProviders, JBLocations::MAPPROVIDER_MS);
         }
+    }
+    
+    /**
+     * Enter description here ...
+     * @param integer $intMapId The id for this map
+     */
+    protected function queryMapSettings($intMapId) {
+    	return $this->Database->prepare('SELECT * FROM tl_jblocations_maps WHERE id=?')
+			->execute(intval($intMapId));
     }
 
     /**
@@ -179,16 +223,17 @@ class JBLocations extends Frontend {
      * @param integer Id for the map
      * @param integer Map provider
      */
-    function generateMap($intMapId, $intMapProvider) {
+    function generateMap($intMapId, $intMapSettings) {
+    	$objMapData = $this->queryMapSettings($intMapSettings);
         // trigger default map as fallback, if needed
         $this->queryMapProviders();
-        if (!in_array($intMapProvider, $this->arrSupportedMapProviders)) {
+        if (!in_array($objMapData->provider, $this->arrSupportedMapProviders)) {
             $intMapProvider = JBLocations::MAPPROVIDER_DEFAULT;
         }
         // generate map
-        switch ($intMapProvider) {
+        switch ($objMapData->provider) {
             case JBLocations::MAPPROVIDER_GOOGLE:
-                $objMap = new JBLocationsMapGoogle($intMapId);
+                $objMap = new JBLocationsMapGoogle($intMapId);                
                 break;
             case JBLocations::MAPPROVIDER_MS:
                 $objMap = new JBLocationsMapMS($intMapId);
@@ -200,6 +245,9 @@ class JBLocations extends Frontend {
                 $objMap = new JBLocationsMapOSM($intMapId);
                 break;
         }
+        $arrMapWidth = unserialize($objMapData->map_width);
+        $arrMapHeight = unserialize($objMapData->map_height);
+        $objMap->setSize($arrMapWidth['value'].$arrMapWidth['unit'], $arrMapHeight['value'].$arrMapHeight['unit']);        
         return $objMap;
     }
 }

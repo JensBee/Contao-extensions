@@ -31,6 +31,8 @@
 // Legends
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['mapmarkers_legend'] = 'Ortsmarken';
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['maptemplate_legend'] = 'Template';
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['mapsize_legend'] = 'Kartengröße';
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['maptype_legend'] = 'Kartentypen';
 
 // Fields
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['provider'] = array(
@@ -45,5 +47,19 @@ $GLOBALS['TL_LANG']['tl_jblocations_maps']['markers_external_show'] = array(
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['map_template'] = array(
     'Template',
     'Template zurDarstellung der Karte.');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_width'] = array(
+    'Breite',
+    'Breite der dargestellten Karte.');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_height'] = array(
+    'Höhe',
+    'Höhe der dargestellten Karte.');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_types'] = array(
+    'Kartentypen',
+    'Legt fest, welche Darstellungsformen einer Karte gezeigt werden können.');
 
+// Map types
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_type_normal'] = 'Standardkarte';
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_type_satellite'] = 'Satellitenkarte';
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_type_normal_satellite'] = 'Standardkarte & Satellit kombiniert';
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_type_terrain'] = 'Geländekarte';
 ?>

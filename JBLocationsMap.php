@@ -43,7 +43,7 @@ abstract class JBLocationsMap extends Frontend {
     const MAP_SATTELLITE        = 1; // sattelite view
     const MAP_NOMAL_SATELLITE   = 2; // satellite & map combined
     const MAP_TERRAIN           = 3; // terrain map
-    protected $arrMapTypes = array(
+    public static $arrMapTypes = array(
         JBLocationsMap::MAP_NORMAL          => 'normal',
         JBLocationsMap::MAP_SATTELLITE      => 'satellite',
         JBLocationsMap::MAP_NOMAL_SATELLITE => 'normal_satellite',
@@ -54,7 +54,7 @@ abstract class JBLocationsMap extends Frontend {
     const MAPCONTROL_DEFAULT = 0;
     const MAPCONTROL_NORMAL  = 0;
     const MAPCONTROL_LARGE   = 1;
-    protected $arrMapControlTypes = array(
+    public static $arrMapControlTypes = array(
         JBLocationsMap::MAPCONTROL_NORMAL   => 'normal',
         JBLocationsMap::MAPCONTROL_LARGE    => 'large',
     );
@@ -67,21 +67,15 @@ abstract class JBLocationsMap extends Frontend {
 
 	/**
 	 * Map width
-	 * @var integer
+	 * @var string
 	 */
-    protected $intMapWidth = 400;
+    protected $strMapWidth = '400px';
 
 	/**
 	 * Map height
-	 * @var integer
+	 * @var string
 	 */
-    protected $intMapHeight = 300;
-
-	/**
-	 * Map width
-	 * @var integer
-	 */
-    protected $strMapSizeUnit = 'px';
+    protected $strMapHeight = '300px';	
 
   	/**
 	 * Should a map controller be used?
@@ -159,7 +153,7 @@ abstract class JBLocationsMap extends Frontend {
 	 * List of supported map types
 	 * @var array
 	 */
-    protected $arrSupportedMapTypes = array(JBLocationsMap::MAP_DEFAULT);
+    public $arrSupportedMapTypes = array(JBLocationsMap::MAP_DEFAULT);
 
 	/**
 	 * List of supported map types
@@ -225,9 +219,8 @@ abstract class JBLocationsMap extends Frontend {
             'URLparams'     => $this->strMapURLParams,
             'zoom'          => $this->intMapZoom,
             'autoZoom'      => $this->boolMapAutoZoom,
-            'mapWidth'      => $this->intMapWidth,
-            'mapHeight'     => $this->intMapHeight,
-            'mapSizeUnit'   => $this->strMapSizeUnit,
+            'mapWidth'      => $this->strMapWidth,
+            'mapHeight'     => $this->strMapHeight,            
         );
     }
 
@@ -263,8 +256,22 @@ abstract class JBLocationsMap extends Frontend {
         }
     }
 
+    /**
+     * Add an array with map-markers
+     * @param array $arrMarkers
+     */
     public function addMarkers(&$arrMarkers) {
         $this->arrMapMarkers = $arrMarkers;
+    }
+    
+    /**
+     * Sets the size of this map
+     * @param string $strWidth Width value with unit
+     * @param string $strHeight Height value with unit
+     */
+    public function setSize($strWidth, $strHeight) {    	
+    	$this->strMapWidth = $strWidth;
+    	$this->strMapHeight = $strHeight;
     }
 }
 

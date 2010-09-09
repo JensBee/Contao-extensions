@@ -9,8 +9,8 @@
         'class="jbloc_map jbloc_map_inc block" '.
         'id="'.$mapId.'" '.
         'style="'.
-          'width:'.$this->map['mapWidth'].$this->map['mapSizeUnit'].';'.
-          'height:'.$this->map['mapHeight'].$this->map['mapSizeUnit'].';'.
+          'width:'.$this->map['mapWidth'].';'.
+          'height:'.$this->map['mapHeight'].';'.
           'display:block;'.
           '"'.
         '>';

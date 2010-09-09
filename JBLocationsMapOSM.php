@@ -35,7 +35,7 @@
  * @author     Jens Bertram
  * @package    Controller
  */
-class JBLocationsMapGoogle extends JBLocationsMap {
+class JBLocationsMapOSM extends JBLocationsMap {
 
 	/**
 	 * List of supported map types
@@ -44,8 +44,7 @@ class JBLocationsMapGoogle extends JBLocationsMap {
 	public $arrSupportedMapTypes = array (
 		JBLocationsMap::MAP_NORMAL,
 		JBLocationsMap::MAP_SATTELLITE,
-		JBLocationsMap::MAP_NOMAL_SATELLITE,
-		JBLocationsMap::MAP_TERRAIN
+		JBLocationsMap::MAP_NOMAL_SATELLITE,		
 	);
 
 	/**
@@ -73,23 +72,11 @@ class JBLocationsMapGoogle extends JBLocationsMap {
 	}
 
 	/*
-	 * Get the Google-Maps id
-	 * @return string Google-Maps id
-	 */
-	protected function getMapKey() {
-		$rootPageDetails = $this->getPageDetails($this->getRootIdFromUrl());
-		if ($rootPageDetails->jblocations_map_google) {
-			return $rootPageDetails->jblocations_map_google;
-		}
-		return; // nothing found
-	}
-
-	/*
 	 * Generate the code for Google-Maps
 	 * @param object A JBLocationsMap configuration object
 	 * @return string The map code
 	 */
-	public function getMapCode($strTemplate='jbloc_imap_google') {
+	public function getMapCode($strTemplate='jbloc_imap_osm') {
 		$objTemplate = new FrontendTemplate($strTemplate);
 		$objTemplate->map = $this->arrCompiledMap;
 		$objTemplate->marker = $this->arrMapMarkers;
