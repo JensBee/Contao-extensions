@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_jblocations_types'] = array (
 );
 
 // Palettes
-$GLOBALS['TL_DCA']['tl_jblocations_types']['palettes']['default'] = 'title,css_class;{teaser_legend:hide},teaser;{details_legend:hide},details';
+$GLOBALS['TL_DCA']['tl_jblocations_types']['palettes']['default'] = 'title,css_class;{icon_legend:hide},icon;{teaser_legend:hide},teaser;{details_legend:hide},details';
 
 // Fields
 $GLOBALS['TL_DCA']['tl_jblocations_types']['fields'] = array (
@@ -89,6 +89,12 @@ $GLOBALS['TL_DCA']['tl_jblocations_types']['fields'] = array (
 		'exclude'   => true,		
 		'inputType' => 'text',
 		'eval'      => array('mandatory'=>true, 'maxlength'=>255)
+    ),
+    'icon' => array (
+    	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_types']['icon'],
+		'exclude'	=> true,
+		'inputType'	=> 'fileTree',
+		'eval'      => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr')
     ),
 	'details' => array (
 		'label'     => &$GLOBALS['TL_LANG']['tl_jblocations_types']['details'],

@@ -180,12 +180,26 @@ class JBLocations extends Frontend {
      * @param int (Optional) SQL Limit
      * @return object Database result
      */
-    public function getLocationDataById($strLocationId, $strSelect='*', $limit='') {
+    protected function getLocationDataById($strLocationId, $strSelect='*', $limit='') {
         $query = 'SELECT '.$strSelect.' FROM tl_jblocations_coords WHERE id IN ('.$strLocationId.')';
         if ($limit) {
             return $this->Database->prepare($query)->limit($limit)->execute();
         }
         return $this->Database->prepare($query)->execute();
+    }
+    
+    /**
+     * Get location details by location id
+     * @param string Location id
+     * @return array Location details
+     */
+    public function getLocationDataArrayById($strLocationId) {
+        $objData = $this->getLocationDataById($strLocationId, 'title, description, coords');
+        return array(
+        	'title' 		=> &$objData->title,
+        	'description' 	=> &$objData->description,
+        	'coords'		=> &$objData->coords
+        );
     }
 
     /**
@@ -203,6 +217,21 @@ class JBLocations extends Frontend {
         return $this->Database->prepare($query)->execute();
     }
 
+    /**
+     * Get location type by location id
+     * @param string LocationType id
+     * @return array Location type details
+     */
+    public function getLocationTypeArrayById($strLocationTypeId, $strSelect='*', $limit='') {
+        $objData = $this->getLocationTypeById($strLocationTypeId, 'css_class,title,teaser,details');
+        return array(
+			'css'       => &$objLocationTypeQuery->css_class,
+			'title'     => &$objLocationTypeQuery->title,
+			'teaser'    => &$objLocationTypeQuery->teaser,
+			'details'   => &$objLocationTypeQuery->details,
+        );
+    }
+    
     /**
      * Generate link to map and event details
      * @param integer page id

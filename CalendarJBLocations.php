@@ -80,26 +80,14 @@ class CalendarJBLocations extends JBLocations {
 				$arrEventLocations = array();
 				$arrLocationList = unserialize($objEventData->jblocations_list);
 				$arrLocationIds = array();
-
+				
 				// loop through locations
-				foreach ($arrLocationList as $arrLocation) {
-					$objLocationDataQuery = $jbLocations
-						->getLocationDataById($arrLocation[0], '*', 1);
-					$objLocationTypeQuery = $jbLocations
-						->getLocationTypeById($arrLocation[1], 'css_class, title, teaser, details', 1);
-					$arrLocationIds[] = $arrLocation[0];
-					$arrEventLocations[] = array(
-                        'id'            => $arrLocation[0],
-                        'title'         => $objLocationDataQuery->title,
-                        'description'   => $objLocationDataQuery->description,
-                        'class'         => array(
-                            'css'       => $objLocationTypeQuery->css_class,
-                            'title'     => $objLocationTypeQuery->title,
-                            'teaser'    => $objLocationTypeQuery->teaser,
-                            'details'   => $objLocationTypeQuery->details,
-						),
-                        'coords'        => $objLocationDataQuery->coords,
-					);
+				for($i = 0; $i < sizeof($arrLocationList); $i++){
+					$arrLocationIds[] = $arrLocationList[$i][0];				
+					$arrEventLocations[$i] = $jbLocations->
+						getLocationDataArrayById($arrLocationList[$i][0]);
+					$arrEventLocations[$i]['class'] =
+						$jbLocations->getLocationTypeArrayById($arrLocationList[$i][1]);						
 				}
 
 				$arrReturn = array(
@@ -132,7 +120,6 @@ class CalendarJBLocations extends JBLocations {
 				// check if we are on full event view, if so: render map
 				if (!$objTemplate->link) {					
 					$objMap = $this->generateMap($objTemplate->id, $objMapData->jblocations_map);					
-					//$objMap->setAllowedMapTypes(array(JBLocationsMap::MAP_SATTELLITE));
 					$objMap->setMapTypeSwitchAllowed(true);
 					$objMap->addMarkers($arrEventData['mapMarker']);
 					$objMap->compile();

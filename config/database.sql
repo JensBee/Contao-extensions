@@ -79,6 +79,7 @@ CREATE TABLE `tl_jblocations_types` (
   `css_class` varchar(255) NOT NULL default '',
   `teaser` text NULL,
   `details` mediumtext NULL,
+  `icon` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

@@ -34,6 +34,11 @@ $GLOBALS['TL_LANG']['tl_jblocations_types'] = array(
         'CSS-Klasse',
         'CSS-Klasse der Kategorie.'
     ),
+    'icon' => array (
+    	'Symbol',
+    	'Dieser Kategorie ein festes Symbol für Karten zuweisen.'
+    ),
+    'icon_legend' => 'Symbol',
     'details' => array (
         'Beschreibung',
         'Beschreibung der Kategorie.'
