@@ -92,7 +92,7 @@ class CalendarJBLocations extends JBLocations {
 
 				$arrReturn = array(
                     'mapLink'   => $this->generateMapLink($pid, implode('_', $arrLocationIds)),
-                    'mapMarker' => $arrEventLocations
+                    'mapMarker' => &$arrEventLocations
 				);
 			}
 		}
@@ -127,10 +127,10 @@ class CalendarJBLocations extends JBLocations {
 					$arrTemplateMap['code'] = $objMap->getMapCode();
 					$arrTemplateMap['data'] = $objMap->getMapData();
 					if ($objMap->boolShowMarker || $objMap->boolShowExternalMarker) {
-						$arrTemplateMap['marker'] = $arrEventData['mapMarker'];
+						$arrTemplateMap['marker'] = &$arrEventData['mapMarker'];
 					}
 				}
-				$arrTemplateMap['url'] = $arrEventData['mapLink'];
+				$arrTemplateMap['url'] = &$arrEventData['mapLink'];
 				$objTemplate->jblocations_map = $arrTemplateMap;
 				$objTemplate->jblocations = $arrEventData['mapMarker'];
 			}

@@ -69,16 +69,25 @@
           if ($this->map['markerMap']) {
 	        $arrMarkerDetails = array();            
 	        $out .= 'latlng = Array(); var latlngbounds = new GLatLngBounds();';
+	        $intIconNum = 1;
 	        for($i = 0; $i < sizeof($this->marker); $i++){
-	          $out .=
-	            'var markerIcon = new GIcon(G_DEFAULT_ICON);'.
-	            'markerIcon.image = "http://www.geocodezip.com/mapIcons/marker'.($i+1).'.png";'.
-	            'marker = new GLatLng('.$this->marker[$i]['coords'].');'.
-	            'latlng.push(new GMarker('.
-	              'marker,'.
-	                '{icon:markerIcon}'.
-	            '));'.
-	            'latlngbounds.extend(marker);';
+	        	if ($this->marker[$i]['class']['icon']) {
+	        		$out .= 'var markerIcon = new GIcon();'.
+	        				'markerIcon.image = "'.$this->marker[$i]['class']['icon'].'";'.
+	        				'markerIcon.iconSize = new GSize('.$this->marker[$i]['class']['icon_width'].', '.$this->marker[$i]['class']['icon_height'].');'.
+	        				// set anchor to center bottom
+	        				'markerIcon.iconAnchor = new GPoint('.($this->marker[$i]['class']['icon_width']/2).', '.$this->marker[$i]['class']['icon_height'].');';	
+	        	} else {
+	          		$out .= 'var markerIcon = new GIcon(G_DEFAULT_ICON);'.
+	            			'markerIcon.image = "http://www.geocodezip.com/mapIcons/marker'.$intIconNum.'.png";';
+	          		$intIconNum++;
+	        	}
+	          	$out .=	'marker = new GLatLng('.$this->marker[$i]['coords'].');'.
+	            		'latlng.push(new GMarker('.
+	              			'marker,'.
+	                		'{icon:markerIcon}'.
+	            		'));'.
+	            		'latlngbounds.extend(marker);';
 	        }
 	        $out .=
 	          'for (var i=0; i<latlng.length; i++) {'.

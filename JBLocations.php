@@ -195,7 +195,7 @@ class JBLocations extends Frontend {
      */
     public function getLocationDataArrayById($strLocationId) {
         $objData = $this->getLocationDataById($strLocationId, 'title, description, coords');
-        return array(
+        return array (
         	'title' 		=> &$objData->title,
         	'description' 	=> &$objData->description,
         	'coords'		=> &$objData->coords
@@ -223,12 +223,23 @@ class JBLocations extends Frontend {
      * @return array Location type details
      */
     public function getLocationTypeArrayById($strLocationTypeId, $strSelect='*', $limit='') {
-        $objData = $this->getLocationTypeById($strLocationTypeId, 'css_class,title,teaser,details');
-        return array(
-			'css'       => &$objLocationTypeQuery->css_class,
-			'title'     => &$objLocationTypeQuery->title,
-			'teaser'    => &$objLocationTypeQuery->teaser,
-			'details'   => &$objLocationTypeQuery->details,
+        $objData = $this->getLocationTypeById($strLocationTypeId, 'css_class,title,teaser,details,icon');
+        if ($objData->icon) {
+        	$arrIconSize = getimagesize($this->Environment->base.$objData->icon);
+        	if ($arrIconSize !== false) {
+        		$icon = $this->Environment->base.$objData->icon;
+        		$icon_width = $arrIconSize[0];
+        		$icon_height = $arrIconSize[1];
+        	}
+        }
+        return array (
+			'css'       	=> &$objData->css_class,
+			'title'     	=> &$objData->title,
+			'teaser'    	=> &$objData->teaser,
+			'details'   	=> &$objData->details,
+        	'icon'			=> &$icon,
+        	'icon_width'	=> &$icon_width,
+        	'icon_height'	=> &$icon_height,
         );
     }
     
