@@ -38,6 +38,12 @@
 class JBLocationsMapGoogle extends JBLocationsMap {
 
 	/**
+     * Template for this map
+     * @var string Template name
+     */
+    protected $strMapTemplate = 'jbloc_imap_google';
+	
+	/**
 	 * List of supported map types
 	 * @var array
 	 */
@@ -73,20 +79,6 @@ class JBLocationsMapGoogle extends JBLocationsMap {
 			return $rootPageDetails->jblocations_map_google;
 		}
 		return; // nothing found
-	}
-
-	/*
-	 * Generate the code for Google-Maps
-	 * @param object A JBLocationsMap configuration object
-	 * @return string The map code
-	 */
-	public function getMapCode($strTemplate='jbloc_imap_google') {
-		$objTemplate = new FrontendTemplate($strTemplate);
-		$objTemplate->map = $this->arrCompiledMap;
-		if ($this->boolShowExternalMarker || $this->boolShowMarker) {
-			$objTemplate->marker = $this->arrMapMarkers;
-		}
-		return $objTemplate->parse();
 	}
 }
 

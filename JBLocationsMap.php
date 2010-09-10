@@ -89,6 +89,18 @@ abstract class JBLocationsMap extends Frontend {
 	 */
     protected $arrMapMarkers = array();
 
+	/**
+     * Headline for the map
+     * @var array (unit, value)
+     */
+    protected $arrHeadlineMap;
+    
+	/**
+     * Headline for the map-markers
+     * @var array (unit, value)
+     */
+    protected $arrHeadlineMarker;
+    
     /**
      * Show external markers?
      * @var boolean
@@ -172,7 +184,7 @@ abstract class JBLocationsMap extends Frontend {
      * @var string Template name
      */
     protected $strMapTemplate;
-
+    
     /**
      * Marker-template for this map
      * @var string Template name
@@ -235,6 +247,12 @@ abstract class JBLocationsMap extends Frontend {
 			if ($objMapData->map_type_default) {				
 				$this->intDefaultMapType = preg_replace('/mt_/', '', $objMapData->map_type_default);				
     		}
+    		if ($objMapData->headline_map) {
+				$this->arrHeadlineMap = unserialize($objMapData->headline_map);				
+    		}
+    		if ($objMapData->headline_marker) {				
+				$this->arrHeadlineMarker = unserialize($objMapData->headline_marker);;
+    		}
     		$this->strMapTemplate = $objMapData->map_template ? $objMapData->map_template : null;
     		$this->boolShowMarker = $objMapData->markers_show ? true : false;
     		$this->boolShowExternalMarker = $objMapData->markers_external_show ? true : false;      
@@ -275,17 +293,38 @@ abstract class JBLocationsMap extends Frontend {
         return '';
     }
 
-	/**
-	 * Returns the map HTML code
-     * @return string the map code
+	/*
+	 * Generate the code for this map
+	 * @param string The map template
+	 * @param string The map-marker template
+	 * @return string The map code
 	 */
-	abstract public function getMapCode();
+	public function getMapCode($strTemplate=null, $strTemplateMarker=null) {
+		if (!$strTemplate) {
+			$strTemplate = &$this->strMapTemplate;
+		}
+		if (!$strTemplateMarker) {
+			$strTemplateMarker = &$this->strMapMarkerTemplate;
+		}
+		
+		$objTemplateMap = new FrontendTemplate($strTemplate);
+		$objTemplateMap->map = $this->arrCompiledMap;
+		
+		if ($this->boolShowExternalMarker || $this->boolShowMarker) {
+			$objTemplateMap->marker = $this->arrMapMarkers;
+			$objTemplateMapMarker = new FrontendTemplate($strTemplateMarker);
+			$objTemplateMapMarker->marker = $this->arrMapMarkers;
+			$objTemplateMapMarker->mapId = $this->intMapId;
+			$objTemplateMap->markerCode = $objTemplateMapMarker->parse();			
+		}
+		return $objTemplateMap->parse();
+	}
 
 	/**
 	 * Returns the compiled map data array
      * @return array
 	 */
-	public function getMapData() {
+	protected function getMapData() {
         return $this->arrCompiledMap;
     }
 
@@ -317,6 +356,8 @@ abstract class JBLocationsMap extends Frontend {
             'mapHeight'     => &$this->strMapHeight,
         	'markerMap'		=> &$this->boolShowMarker,
         	'markerExternal'=> &$this->boolShowExternalMarker,
+        	'headlineMap'	=> &$this->arrHeadlineMap,
+        	'headlineMarker'=> &$this->arrHeadlineMarker,
         );
     }
 

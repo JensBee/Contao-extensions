@@ -31,6 +31,9 @@
 // Content elements
 $GLOBALS['TL_LANG']['CTE']['googlemaps_locations']  = array('Ort', 'Bindet einen festgelegten Ort als Content Element ein.');
 
+// Misc
+$GLOBALS['TL_LANG']['MSC']['jblocations']['show_marker_on_map'] = 'Auf der Karte anzeigen';
+
 // Fields
 $GLOBALS['TL_LANG']['tl_jblocations']['edit']   = 'Bearbeiten';
 $GLOBALS['TL_LANG']['tl_jblocations']['copy']   = 'Kopieren';

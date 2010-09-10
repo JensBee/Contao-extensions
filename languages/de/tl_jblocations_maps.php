@@ -33,11 +33,18 @@ $GLOBALS['TL_LANG']['tl_jblocations_maps']['mapmarkers_legend'] = 'Ortsmarken';
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['maptemplate_legend'] = 'Templates';
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['mapsize_legend'] = 'Kartengröße';
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['maptype_legend'] = 'Kartentypen';
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['mapheadlines_legend'] = 'Überschriften';
 
 // Fields
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['provider'] = array(
     'Kartenanbieter',
     'Legt fest, von welchem Anbieter die Karten dargestellt werden.');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['headline_map'] = array(
+    'Überschrift Karte',
+    'Überschrift der Karte.');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['headline_marker'] = array(
+    'Überschrift Ortsmarken',
+    'Überschrift der externen Ortsmarken.');
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['markers_show'] = array(
     'Ortsmarken anzeigen',
     'Legt fest, ob Ortsmarken auf der Karte dargestellt werden sollen.');

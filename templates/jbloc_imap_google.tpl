@@ -3,15 +3,26 @@ $mapId = 'jbloc_map_'.$this->map['id'];
 $mapJs = 'jbloc_gmap_'.$this->map['id'];
 $out='';
 
-// ** map div
+// main container
+$out .= '<div class="jbloc_map_container jbloc_map_inc_container block">';
+
+if ($this->map['headlineMap']) {
+	$out .= '<'.$this->map['headlineMap']['unit'].'>';
+	$out .= $this->map['headlineMap']['value'];
+	$out .= '</'.$this->map['headlineMap']['unit'].'>';
+}
+
+// map container
 $out.="\n";
 $out.='<div '.
-	'class="jbloc_map jbloc_map_inc block" '.
+	'class="jbloc_map block" '.
 	'id="'.$mapId.'" '.
 	'style="'.
 		'width:'.$this->map['mapWidth'].';'.
 		'height:'.$this->map['mapHeight'].';'.
 		'display:block;'.
+		'margin-right:1em;'.
+		'float:left;'.
 		'"'.
 	'>';
 $out.="\n";
@@ -41,7 +52,22 @@ $out.='&sensor='.$this->map['GPS'];
 $out.='&key='.$this->map['key'];
 $out.='"/>';
 $out.="\n".'</noscript>'."\n";
-$out.='</div>';
+$out.='</div>'; // map container
+
+// marker container
+$out.='<div class="jbloc_map_marker block" style="float:left;">';
+if ($this->map['headlineMarker']) {
+	$out .= '<'.$this->map['headlineMarker']['unit'].' class="s_small">';
+	$out .= $this->map['headlineMarker']['value'];
+	$out .= '</'.$this->map['headlineMarker']['unit'].'>';
+}
+// output external marker code
+if ($this->map['markerExternal'] && sizeof($this->marker) > 0) {
+	$out .= $this->markerCode;
+}
+$out.='</div>'; // marker container
+
+$out.='</div>'; // main container
 
 /*
  * Dynamic map
