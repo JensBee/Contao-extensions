@@ -58,115 +58,7 @@ abstract class JBLocationsMap extends Frontend {
         JBLocationsMap::MAPCONTROL_NORMAL   => 'normal',
         JBLocationsMap::MAPCONTROL_LARGE    => 'large',
     );
-
-	/**
-	 * Id for this map
-	 * @var integer
-	 */
-    protected $intMapId;
-
-    /**
-     * Template for this map
-     * @var string Template name
-     */
-    protected $strMapTemplate;
     
-	/**
-	 * Map width
-	 * @var string
-	 */
-    protected $strMapWidth = '400px';
-
-	/**
-	 * Map height
-	 * @var string
-	 */
-    protected $strMapHeight = '300px';	
-
-    /**
-     * Show markers on map?
-     * @var boolean
-     */
-    protected $boolShowMarker = true;
-    
-    /**
-     * Show external markers?
-     * @var boolean
-     */
-    protected $boolShowExternalMarker = true;
-    
-  	/**
-	 * Should a map controller be used?
-	 * @var boolean default false
-	 */
-    protected $boolUseMapController = false;
-
-  	/**
-	 * Allow map types to be switched?
-	 * @var boolean default false
-	 */
-    protected $boolUseMapTypeSwitch = false;
-
-  	/**
-	 * Is map type switching supported?
-	 * @var boolean default false
-	 */
-    protected $boolHasMapTypeSwitch = false;
-
-  	/**
-	 * Should a GPS sensor be used?
-	 * @var boolean default false
-	 */
-    protected $boolUseGPSSensor = false;
-
-  	/**
-	 * Should be the map auto zoomed?
-	 * @var boolean default true
-	 */
-    protected $boolMapAutoZoom = true;
-
-    /**
-	 * Map API Key
-	 * @var string
-	 */
-    protected $strMapKey;
-    
-  	/**
-	 * Map language
-	 * @var string
-	 */
-    protected $strLanguage = 'en';
-
-  	/**
-	 * Additional map code
-	 * @var string
-	 */
-    protected $strMapUserCode;
-
-  	/**
-	 * Additional map url parameters
-	 * @var string
-	 */
-    protected $strMapURLParams;
-
-	/**
-	 * The default map zoom factor
-	 * @var integer
-	 */
-    protected $intMapZoom;
-
-	/**
-	 * The default map type to show
-	 * @var integer
-	 */
-    protected $intDefaultMapType = JBLocationsMap::MAP_DEFAULT;
-
-	/**
-	 * The default map type to show
-	 * @var integer
-	 */
-    protected $intControllerType = JBLocationsMap::MAPCONTROL_DEFAULT;
-
 	/**
 	 * List of supported map control types
 	 * @var array
@@ -198,12 +90,127 @@ abstract class JBLocationsMap extends Frontend {
     protected $arrMapMarkers = array();
 
     /**
+     * Show external markers?
+     * @var boolean
+     */
+    protected $boolShowExternalMarker = true;
+    
+    /**
+     * Show markers on map?
+     * @var boolean
+     */
+    protected $boolShowMarker = true;
+    
+  	/**
+	 * Should a map controller be used?
+	 * @var boolean default false
+	 */
+    protected $boolUseMapController = false;
+
+  	/**
+	 * Allow map types to be switched?
+	 * @var boolean default false
+	 */
+    protected $boolUseMapTypeSwitch = false;
+
+  	/**
+	 * Is map type switching supported?
+	 * @var boolean default false
+	 */
+    protected $boolHasMapTypeSwitch = false;
+
+  	/**
+	 * Should a GPS sensor be used?
+	 * @var boolean default false
+	 */
+    protected $boolUseGPSSensor = false;
+
+  	/**
+	 * Should be the map auto zoomed?
+	 * @var boolean default true
+	 */
+    protected $boolMapAutoZoom = true;
+    
+	/**
+	 * Id for this map
+	 * @var integer
+	 */
+    protected $intMapId;
+    
+	/**
+	 * The default map zoom factor
+	 * @var integer
+	 */
+    //protected $intMapZoom;
+    
+	/**
+	 * The default map type to show
+	 * @var integer
+	 */
+    protected $intDefaultMapType = JBLocationsMap::MAP_DEFAULT;
+
+	/**
+	 * The default map type to show
+	 * @var integer
+	 */
+    protected $intControllerType = JBLocationsMap::MAPCONTROL_DEFAULT;
+ 
+  	/**
+	 * Map language
+	 * @var string
+	 */
+    protected $strLanguage = 'en';
+
+	/**
+	 * Map API Key
+	 * @var string
+	 */
+    protected $strMapKey;
+    
+    /**
+     * Template for this map
+     * @var string Template name
+     */
+    protected $strMapTemplate;
+
+    /**
+     * Marker-template for this map
+     * @var string Template name
+     */
+    protected $strMapMarkerTemplate = 'jbloc_marker';
+    
+	/**
+	 * Map width
+	 * @var string
+	 */
+    protected $strMapWidth = '400px';
+
+	/**
+	 * Map height
+	 * @var string
+	 */
+    protected $strMapHeight = '300px';	
+
+  	/**
+	 * Additional map code
+	 * @var string
+	 */
+    //protected $strMapUserCode;
+
+  	/**
+	 * Additional map url parameters
+	 * @var string
+	 */
+    //protected $strMapURLParams;
+
+    /**
      * Constructor
      * @param $intMapId Id for this map
      * @param $objMapData tl_jblocations_maps query result for this map
      */
     function __construct($intMapId=null, $objMapData=null) {	
     	parent::__construct();
+    	$this->strLanguage = &$GLOBALS['TL_LANGUAGE'];
     	if ($intMapId) {
     		$this->intMapId = $intMapId;
     	}
@@ -222,6 +229,12 @@ abstract class JBLocationsMap extends Frontend {
 	    			array_push($this->arrAllowedMapTypes, preg_replace('/mt_/', '', $mt));
 	    		}
     		}
+    		if ($objMapData->map_marker_template) {
+    			$this->strMapMarkerTemplate = $objMapData->map_marker_template;
+    		}
+			if ($objMapData->map_type_default) {				
+				$this->intDefaultMapType = preg_replace('/mt_/', '', $objMapData->map_type_default);				
+    		}
     		$this->strMapTemplate = $objMapData->map_template ? $objMapData->map_template : null;
     		$this->boolShowMarker = $objMapData->markers_show ? true : false;
     		$this->boolShowExternalMarker = $objMapData->markers_external_show ? true : false;      
@@ -229,19 +242,26 @@ abstract class JBLocationsMap extends Frontend {
     }
     
     /**
+	 * Sets an attribute of this map
+	 * @param string The property name
+	 * @param mixed The property value
+	 * @return boolean True if successfull
+	 */
+    public function __set($strKey, $val) {
+    	return false;    	
+    }
+    
+    /**
 	 * Return an attribute of this map
 	 * @param  string The property name
-	 * @return mixed The property value
+	 * @return mixed The property value or null
 	 */
 	public function __get($strKey) {
 		switch ($strKey) {
-			case ('boolShowMarker'):
-				return $this->boolShowMarker;
-				break;
-			case ('boolShowExternalMarker'):
-				return $this->boolShowExternalMarker;
-				break;
 			default:
+				if(isset($this->$var)) {
+					return $this-$var;
+				}
 				return null;
 				break;
 		}
@@ -278,19 +298,19 @@ abstract class JBLocationsMap extends Frontend {
             if (isset($this->arrSupportedMapTypes[$intMapType])) {
                 array_push($arrMapTypes, JBLocationsMap::$arrMapTypes[$intMapType]);
             }
-        }
-
+        }        
         $this->arrCompiledMap = array(
             'key'           => $this->getMapKey(),
             'language'      => &$this->strLanguage,
             'id'            => &$this->intMapId,
             'mapTypeSwitch' => &$this->boolUseMapTypeSwitch,
             'mapTypes'      => &$arrMapTypes,
+        	'mapTypeDefault'=> &JBLocationsMap::$arrMapTypes[$this->intDefaultMapType],
             'GPS'           => ($this->boolUseGPSSensor === true) ? 'true' : 'false',
             'controller'    => ($this->boolUseMapController === true) ? 'true' : 'false',
             'controllerType'=> &JBLocationsMap::$arrMapControlTypes[$this->intControllerType],
-            'userCode'      => &$this->strMapUserCode,
-            'URLparams'     => &$this->strMapURLParams,
+            //'userCode'      => &$this->strMapUserCode,
+            //'URLparams'     => &$this->strMapURLParams,
             'zoom'          => &$this->intMapZoom,
             'autoZoom'      => &$this->boolMapAutoZoom,
             'mapWidth'      => &$this->strMapWidth,

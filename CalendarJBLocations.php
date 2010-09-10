@@ -124,15 +124,17 @@ class CalendarJBLocations extends JBLocations {
 					$objMap->addMarkers($arrEventData['mapMarker']);
 					$objMap->compile();
 
-					$arrTemplateMap['code'] = $objMap->getMapCode();
-					$arrTemplateMap['data'] = $objMap->getMapData();
+					$arrTemplateMap['map']['code'] = $objMap->getMapCode();
+					// show markers on full view only on demans					
 					if ($objMap->boolShowMarker || $objMap->boolShowExternalMarker) {
 						$arrTemplateMap['marker'] = &$arrEventData['mapMarker'];
 					}
+				} else {
+					// always show marker data on other views
+					$arrTemplateMap['marker'] = &$arrEventData['mapMarker'];
 				}
-				$arrTemplateMap['url'] = &$arrEventData['mapLink'];
-				$objTemplate->jblocations_map = $arrTemplateMap;
-				$objTemplate->jblocations = $arrEventData['mapMarker'];
+				$arrTemplateMap['map']['url'] = &$arrEventData['mapLink'];
+				$objTemplate->jblocations = $arrTemplateMap;
 			}
 		}
 	}

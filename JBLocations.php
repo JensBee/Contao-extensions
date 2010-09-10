@@ -137,12 +137,13 @@ class JBLocations extends Frontend {
 				$map = new JBLocationsMapOSM();
                 break;
         }
-        // create checkboxes        
+        // create check- & radioboxes        
         foreach ($map->arrSupportedMapTypes as $intMapType) {
-        	$GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_types']['options']['mt_'.$intMapType] =
-        		$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_type_'. 
-        			JBLocationsMap::$arrMapTypes[$map->arrSupportedMapTypes[$intMapType]]
-        		];    	
+        	$name = $GLOBALS['TL_LANG']['tl_jblocations_maps']['map_type_'. 
+        				JBLocationsMap::$arrMapTypes[$map->arrSupportedMapTypes[$intMapType]]
+        			];
+        	$GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_types']['options']['mt_'.$intMapType] = $name;
+        	$GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_type_default']['options']['mt_'.$intMapType] = $name;	    	
         }
         return $varValue;
     }

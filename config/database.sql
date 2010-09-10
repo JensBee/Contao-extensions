@@ -60,9 +60,11 @@ CREATE TABLE `tl_jblocations_maps` (
   `markers_show` char(1) NOT NULL default '',
   `markers_external_show` char(1) NOT NULL default '',
   `map_template` varchar(255) NOT NULL default '',  
+  `map_marker_template` varchar(255) NOT NULL default '',
   `map_width` varchar(64) NOT NULL default '400px',
   `map_height` varchar(64) NOT NULL default '300px',
-  `map_types` blob NULL, 
+  `map_types` blob NULL,
+  `map_type_default` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
