@@ -28,32 +28,46 @@
  * @filesource
  */
 
-// palettes
-$GLOBALS['TL_DCA']['tl_module']['palettes']['eventreader'] = 
-    str_replace(
-        '{protected_legend:hide}',
-        '{jblocations_map_legend:hide},jblocations_map_published;{protected_legend:hide}',  
-        $GLOBALS['TL_DCA']['tl_module']['palettes']['eventreader']
-);
+// Get shared DCA
+$this->loadDataContainer('tl_jblocations');
 
-// selectors
-$GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'jblocations_map_published';
+/**
+ * Palettes
+ */
+$GLOBALS['TL_DCA']['tl_module']['palettes']['jblocations_map'] = 
+	'{title_legend},'.
+		'name,'.
+		'headline,'.
+		'type;'.
+	'{jblocations_mapconfig_legend},'.
+		'jblocations_map,'.
+		'jblocations_published;'.
+	'{protected_legend:hide},'.
+		'protected;'.
+	'{expert_legend:hide},'.
+		'guests,'.
+		'cssID,space';
 
-// subpalettes
-$GLOBALS['TL_DCA']['tl_module']['subpalettes']['jblocations_map_published'] = 'jblocations_map';
+/**
+ * Selectors
+ */
+$GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'jblocations_published';
 
-// field definitions
-$GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_map_published'] = array (
-    'label'     => &$GLOBALS['TL_LANG']['tl_module']['jblocations_map_published'],
-    'inputType' => 'checkbox',
-	'eval'      => array('submitOnChange'=>true)
-);
+/**
+ * Subpalettes
+ */
+$GLOBALS['TL_DCA']['tl_module']['subpalettes']['jblocations_published'] = 'jblocations_list';
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_map'] = array (
-    'label'         => &$GLOBALS['TL_LANG']['tl_module']['jblocations_map'],
-	'exclude'       => true,
-	'inputType'     => 'select',
-	'foreignKey'    => 'tl_jblocations_maps.title',
-);
+/**
+ * Fields
+ */
+// Map locations chooser
+$GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_list'] 			= $GLOBALS['TL_DCA']['tl_jblocations']['locations_list'];
+$GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_list']['label'] 	= &$GLOBALS['TL_LANG']['tl_jblocations']['locationtype']['chooser'];
+// Locations published?
+$GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_published'] 			= $GLOBALS['TL_DCA']['tl_jblocations']['locations_published'];
+$GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_published']['label']	= &$GLOBALS['TL_LANG']['tl_jblocations']['locations']['publish'];
+// Map chooser
+$GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_map'] = $GLOBALS['TL_DCA']['tl_jblocations']['map_chooser'];
 
 ?>

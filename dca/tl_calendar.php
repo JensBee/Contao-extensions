@@ -28,7 +28,13 @@
  * @filesource
  */
 
-// show in backend
+// Get shared DCA
+$this->loadDataContainer('tl_jblocations');
+
+/**
+ * Palettes
+ */
+// Integrate in calendar
 $GLOBALS['TL_DCA']['tl_calendar']['palettes']['default'] = 
     str_replace(
         '{comments_legend:hide}',
@@ -37,31 +43,29 @@ $GLOBALS['TL_DCA']['tl_calendar']['palettes']['default'] =
         $GLOBALS['TL_DCA']['tl_calendar']['palettes']['default']
 );
 
-// selectors
+/**
+ * Selectors
+ */
 $GLOBALS['TL_DCA']['tl_calendar']['palettes']['__selector__'][] = 'jblocations_map_published';
 
-// subpalettes
+/**
+ * Subpalettes
+ */
 $GLOBALS['TL_DCA']['tl_calendar']['subpalettes']['jblocations_map_published'] = 'jblocations_map';
 
-// field definitions
+/**
+ * Fields
+ */
 $GLOBALS['TL_DCA']['tl_calendar']['fields']['jblocations_jumpTo'] = array (
 	'label'     => &$GLOBALS['TL_LANG']['tl_calendar']['jblocations_jumpTo'],
     'exclude'   => true,
     'inputType' => 'pageTree',
     'eval'      => array('fieldType'=>'radio')
 );
-
-$GLOBALS['TL_DCA']['tl_calendar']['fields']['jblocations_map_published'] = array (
-    'label'     => &$GLOBALS['TL_LANG']['tl_calendar']['jblocations_map_published'],
-    'inputType' => 'checkbox',
-	'eval'      => array('submitOnChange'=>true)
-);
-
-$GLOBALS['TL_DCA']['tl_calendar']['fields']['jblocations_map'] = array (
-    'label'         => &$GLOBALS['TL_LANG']['tl_calendar']['jblocations_map'],
-	'exclude'       => true,
-	'inputType'     => 'select',
-	'foreignKey'    => 'tl_jblocations_maps.title',
-);
+// Map published?
+$GLOBALS['TL_DCA']['tl_calendar']['fields']['jblocations_map_published'] 			= $GLOBALS['TL_DCA']['tl_jblocations']['map_published'];
+$GLOBALS['TL_DCA']['tl_calendar']['fields']['jblocations_map_published']['label']	= &$GLOBALS['TL_LANG']['tl_calendar']['jblocations_map_published']; 
+// Map chooser
+$GLOBALS['TL_DCA']['tl_calendar']['fields']['jblocations_map'] = $GLOBALS['TL_DCA']['tl_jblocations']['map_chooser'];
 
 ?>

@@ -23,34 +23,47 @@
  * PHP version 5
  * @copyright  Jens Bertram 2010 
  * @author     Jens Bertram <code@jens-bertram.net>
- * @package    Calendar 
+ * @package    JBLocations
  * @license    LGPL 
  * @filesource
  */
 
-/**
- * Legends
- */
-$GLOBALS['TL_LANG']['tl_calendar']['jblocations_jumpTo_legend']   = 'Weiterleitungsseite für Kartenausschnitte';
-$GLOBALS['TL_LANG']['tl_calendar']['jblocations_legend'] = 'Event-Orte';
 
 /**
- * Fields
+ * Class ModulePageNavBuilder
+ *
+ * @copyright  Jens Bertram 2010 
+ * @author     Jens Bertram 
+ * @package    Controller
  */
-$GLOBALS['TL_LANG']['tl_calendar']['jblocations_jumpTo'] = array(
-    'Weiterleitungsseite für Kartenausschnitte', 
-    'Seite, auf der die Karte für Ihre Veranstaltung dargestellt werden soll.'
-);
-$GLOBALS['TL_LANG']['tl_calendar']['jblocations_published'] = array(
-    'Event-Orte hinzufügen', 
-    'Dem Event Veranstaltungsorte hinzufügen.'
-);
-$GLOBALS['TL_LANG']['tl_calendar']['jblocations_list'] = array(
-    'Veranstaltungsorte', 
-    'Dem Event Veranstaltungsorte hinzufügen.'
-);
-$GLOBALS['TL_LANG']['tl_calendar']['jblocations_map_published'] = array (
-    'Karte anzeigen',
-    'Zeigt eine Karte zu dem Event an.');
+class ModuleJBLocationsMap extends Module {
+
+	/**
+	 * Template
+	 * @var string
+	 */
+	protected $strTemplate = 'mod_jbloc_map';
+
+	/**
+	 * Display a wildcard in the back end
+	 * @return string
+	 */
+	public function generate() {
+		if (TL_MODE == 'BE') {
+			$objTemplate = new backendTemplate('be_wildcard');
+			$objTemplate->wildcard = '### '.$GLOBALS['TL_LANG']['FMD']['jb_locations_map'][0].' ###<br>'.$this->title;
+
+			return $objTemplate->parse();
+		}
+		return parent::generate();
+	}
+
+	/**
+	 * Generate module
+	 */
+	protected function compile() {
+		
+	}
+}
 
 ?>

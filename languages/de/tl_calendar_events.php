@@ -35,17 +35,18 @@ $GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_legend'] = 'Event-Orte';
 
 /**
  * Fields
- */
+ */ 
 $GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_published'] = array(
     'Event-Orte hinzufügen', 
     'Dem Event Veranstaltungsorte hinzufügen.'
+);
+$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_map_published'] = array(
+    'Event-Karte anzeigen', 
+    'Eine Karte zu den Veranstaltungen anzeigen. Die entsprechende Karte wird im Kalender festgelegt.'
 );
 $GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_list'] = array(
     'Veranstaltungsorte', 
     'Dem Event Veranstaltungsorte hinzufügen.'
 );
-
-$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_cssname'] = 'Name';
-$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_cssclass'] = 'Klasse';
 
 ?>

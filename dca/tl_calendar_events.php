@@ -28,7 +28,13 @@
  * @filesource
  */
 
-// show in backend
+// Get shared DCA
+$this->loadDataContainer('tl_jblocations');
+
+/**
+ * Palettes
+ */
+// Integrate in calendar events
 $GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] = 
     str_replace(
         '{teaser_legend:hide}',
@@ -36,34 +42,24 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] =
         $GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default']
 );
 
-// selectors
+/**
+ * Selectors
+ */
 $GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['__selector__'][] = 'jblocations_published';
 
-// subpalettes
+/**
+ * Subpalettes
+ */
 $GLOBALS['TL_DCA']['tl_calendar_events']['subpalettes']['jblocations_published'] = 'jblocations_list';
 
-// field definitions
-$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_published'] = array (
-    'label'     => &$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_published'],
-    'inputType' => 'checkbox',
-	'eval'      => array('submitOnChange'=>true)
-);
-$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_list'] = array (
-	'label'     => &$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_list'],
-    'exclude'   => true,
-    'inputType' => 'jb_locations_wizard',
-    'eval'      => array(
-        'submitOnChange'    => true,
-        'style'             => 'width:200px;',
-        'labels'            => array (
-            &$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_cssname'], 
-            &$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_cssclass']
-        ),
-        'fields'        => array (
-            'tl_jblocations_coords.title',
-            'tl_jblocations_types.title'
-        )
-    )
-);
+/**
+ * Field definitions
+ */ 
+// Locations published?
+$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_published'] 			= $GLOBALS['TL_DCA']['tl_jblocations']['locations_published'];
+$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_published']['label']	= &$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_published'];
+// Map locations chooser
+$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_list'] 			= $GLOBALS['TL_DCA']['tl_jblocations']['locations_list'];
+$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_list']['label'] = &$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_list'];
 
 ?>

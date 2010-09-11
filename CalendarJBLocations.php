@@ -107,6 +107,7 @@ class CalendarJBLocations extends JBLocations {
 	function getEvent(&$objTemplate, $strTemplate) {
 		// check if we are displaying events
 		if (strncmp($strTemplate, 'event_', strlen('event_')) == 0) {
+			echo 'seek:'.$objTemplate->parent->jblocations_map_published;			
 			$objMapData = $this->getCalendarMap($objTemplate->pid);
 			if (!$objMapData->jblocations_map_published || $objMapData->jblocations_map <= 0) {
 				return;

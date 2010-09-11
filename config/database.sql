@@ -89,6 +89,15 @@ CREATE TABLE `tl_jblocations_types` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- 
+-- Table `tl_module`
+-- 
+CREATE TABLE `tl_module` (
+  `jblocations_published` char(1) NOT NULL default '',
+  `jblocations_list` text NULL,
+  `jblocations_map` int(10) unsigned NOT NULL default '0',
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
 -- Table `tl_page`
 -- 
 CREATE TABLE `tl_page` (

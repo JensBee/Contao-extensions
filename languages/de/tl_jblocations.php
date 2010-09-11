@@ -31,23 +31,47 @@
 /**
  * Legends
  */
-$GLOBALS['TL_LANG']['tl_jblocations_maps']['description_legend']            = 'Kartenbeschreibung';
-$GLOBALS['TL_LANG']['tl_jblocations_maps']['dlh_googlemaps_map_legend']     = &$GLOBALS['TL_LANG']['tl_module']['dlh_googlemaps_map_legend'];
-$GLOBALS['TL_LANG']['tl_jblocations_maps']['dlh_googlemaps_marker_legend']  = &$GLOBALS['TL_LANG']['tl_module']['dlh_googlemaps_marker_legend'];
-$GLOBALS['TL_LANG']['tl_jblocations_maps']['dlh_googlemaps_param_legend']   = &$GLOBALS['TL_LANG']['tl_module']['dlh_googlemaps_param_legend'];
+$GLOBALS['TL_LANG']['tl_jblocations']['legend']['locations_maps'] = 'Orte & Karten';
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['description_legend'] = 'Kartenbeschreibung';
 
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_jblocations_maps']['title']         = array('Titel', 'Titel der Karte.');
-$GLOBALS['TL_LANG']['tl_jblocations_maps']['description']   = array('Beschreibung', 'Beschreibung der Karte.');
+// Maps
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['title'] = array(
+	'Titel', 
+	'Titel der Karte.');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['description'] = array(
+	'Beschreibung', 
+	'Beschreibung der Karte.');
+$GLOBALS['TL_LANG']['tl_jblocations']['map']['chooser'] = array (
+    'Kartenvorlage',
+    'Legt fest, welche Karte als Vorlage für die Darstellung dienen soll.');
+// Location-types
+$GLOBALS['TL_LANG']['tl_jblocations']['locationtype']['css_name'] 	= 'Name';
+$GLOBALS['TL_LANG']['tl_jblocations']['locationtype']['css_class']	= 'Klasse';
+$GLOBALS['TL_LANG']['tl_jblocations']['locationtype']['chooser'] = array(
+	'Orte', 
+	'Fügt der Karte Ortsmarken hinzu.');
+// Locations
+$GLOBALS['TL_LANG']['tl_jblocations']['locations']['publish'] = array(
+    'Orte hinzufügen', 
+    'Der Karte Ortsmarken hinzufügen.');
 
 /**
  * Buttons
  */
-$GLOBALS['TL_LANG']['tl_jblocations_maps']['edit']      = array('Bearbeiten', 'Elemente der Navigation bearbeiten');
-$GLOBALS['TL_LANG']['tl_jblocations_maps']['copy']      = array('Kopieren', 'Navigationselement kopieren');
-$GLOBALS['TL_LANG']['tl_jblocations_maps']['delete']    = array('Löschen', 'Navigationselement löschen');
-$GLOBALS['TL_LANG']['tl_jblocations_maps']['show']      = array('Anzeigen', 'Elemente des Navigationselementes anzeigen');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['edit'] = array(
+	'Bearbeiten', 
+	'Elemente der Navigation bearbeiten');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['copy'] = array(
+	'Kopieren', 
+	'Navigationselement kopieren');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['delete'] = array(
+	'Löschen', 
+	'Navigationselement löschen');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['show'] = array(
+	'Anzeigen', 
+	'Elemente des Navigationselementes anzeigen');
 
 ?>

@@ -26,9 +26,33 @@
  * @filesource
  */
 
-$GLOBALS['TL_LANG']['MOD']['jb_locations_group']    = 'Events & Orte'; 
-$GLOBALS['TL_LANG']['MOD']['jb_locations_coords']   = array('Orte', 'Orte für die Darstellung auf Karten verwalten.');
-$GLOBALS['TL_LANG']['MOD']['jb_locations_types']    = array('Kategorien', 'Kategorien für Orte verwalten.');
-$GLOBALS['TL_LANG']['MOD']['jb_locations_maps']     = array('Karten', 'Karten mit Orten verwalten.');
+// Get shared language strings
+$this->loadLanguageFile('tl_calendar_events');
 
+/**
+ * Backend module
+ */
+$GLOBALS['TL_LANG']['MOD']['jb_locations_group'] = 'Events & Orte'; 
+$GLOBALS['TL_LANG']['MOD']['jb_locations_coords'] = array(
+	'Orte', 
+	'Orte für die Darstellung auf Karten verwalten.');
+$GLOBALS['TL_LANG']['MOD']['jb_locations_types'] = array(
+	'Kategorien', 
+	'Kategorien für Orte verwalten.');
+$GLOBALS['TL_LANG']['MOD']['jb_locations_maps'] = array(
+	'Karten', 
+	'Karten mit Orten verwalten.');
+
+/**
+ * Frontend modules
+ */
+$GLOBALS['TL_LANG']['FMD']['jb_locations_group'] = &$GLOBALS['TL_LANG']['tl_jblocations']['legend']['locations_maps'];
+$GLOBALS['TL_LANG']['FMD']['jblocations_map'] = array(
+	'Karte', 
+	'Fügt eine Karte mit Orten ein.');
+
+/**
+ * Fields
+ */
+$GLOBALS['TL_LANG']['tl_module']['jblocations_mapconfig_legend'] = &$GLOBALS['TL_LANG']['tl_jblocations']['legend']['locations_maps'];
 ?>

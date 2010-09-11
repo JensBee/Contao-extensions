@@ -28,7 +28,9 @@
  * @filesource
  */
 
-// Backend module
+/**
+ * Backend modules
+ */
 array_insert($GLOBALS['BE_MOD'], 1, array (
     'jb_locations_group' => array (
         'jb_locations_coords' => array (
@@ -58,13 +60,26 @@ if (is_array($GLOBALS['BE_MOD']['content']['jb_eventstaff'])) {
     unset($GLOBALS['BE_MOD']['content']['jb_eventstaff']);
 }
 
-// Backend form fields
+/**
+ * Backend form fields
+ */
 $GLOBALS['BE_FFL']['jb_locations_wizard'] = 'WizardJBLocations';
 
-// Content Element
+/**
+ * Frontend modules
+ */
+array_insert($GLOBALS['FE_MOD']['jb_locations_group'] = array (
+	'jblocations_map'   => 'ModuleJBLocationsMap',
+));
+
+/**
+ * Content elements
+ */
 $GLOBALS['TL_CTE']['includes']['jblocations_map'] = 'ContentJBLocationsMap';
 
-// Hooks
+/**
+ * Hooks
+ */
 $GLOBALS['TL_HOOKS']['generateFrontendTemplate'][] = array('CalendarJBLocations', 'getEvent');
 
 ?>
