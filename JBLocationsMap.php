@@ -111,19 +111,22 @@ abstract class JBLocationsMap extends Frontend {
      * Show markers on map?
      * @var boolean
      */
+    // FIXME: no markers lead to no viewpoint - do some calculation here
     protected $boolShowMarker = true;
     
   	/**
 	 * Should a map controller be used?
 	 * @var boolean default false
 	 */
+    // TODO: make useMapController configurable in UI
     protected $boolUseMapController = false;
 
   	/**
 	 * Allow map types to be switched?
 	 * @var boolean default false
 	 */
-    protected $boolUseMapTypeSwitch = false;
+    // TODO: make useMapSwitch configurable in UI
+    protected $boolUseMapTypeSwitch = true;
 
   	/**
 	 * Is map type switching supported?
@@ -135,12 +138,14 @@ abstract class JBLocationsMap extends Frontend {
 	 * Should a GPS sensor be used?
 	 * @var boolean default false
 	 */
+    // TODO: make useGPSSensor configurable in UI
     protected $boolUseGPSSensor = false;
 
   	/**
 	 * Should be the map auto zoomed?
 	 * @var boolean default true
 	 */
+    // TODO: make autoZoom configurable in UI
     protected $boolMapAutoZoom = true;
     
 	/**
@@ -207,12 +212,14 @@ abstract class JBLocationsMap extends Frontend {
 	 * Additional map code
 	 * @var string
 	 */
+    // TODO: add user map code
     //protected $strMapUserCode;
 
   	/**
 	 * Additional map url parameters
 	 * @var string
 	 */
+    // TODO: add user map url code
     //protected $strMapURLParams;
 
     /**
@@ -220,12 +227,12 @@ abstract class JBLocationsMap extends Frontend {
      * @param $intMapId Id for this map
      * @param $objMapData tl_jblocations_maps query result for this map
      */
-    function __construct($intMapId=null, $objMapData=null) {	
+    function __construct($intMapId=null, &$objMapData=null) {	
     	parent::__construct();
     	$this->strLanguage = &$GLOBALS['TL_LANGUAGE'];
     	if ($intMapId) {
     		$this->intMapId = $intMapId;
-    	}
+    	}    	
     	if ($objMapData) {
     		if ($objMapData->map_width) {
     			$arrMapWidth = unserialize($objMapData->map_width);
@@ -312,10 +319,12 @@ abstract class JBLocationsMap extends Frontend {
 		
 		if ($this->boolShowExternalMarker || $this->boolShowMarker) {
 			$objTemplateMap->marker = $this->arrMapMarkers;
-			$objTemplateMapMarker = new FrontendTemplate($strTemplateMarker);
-			$objTemplateMapMarker->marker = $this->arrMapMarkers;
-			$objTemplateMapMarker->mapId = $this->intMapId;
-			$objTemplateMap->markerCode = $objTemplateMapMarker->parse();			
+			if ($this->boolShowExternalMarker) {
+				$objTemplateMapMarker = new FrontendTemplate($strTemplateMarker);
+				$objTemplateMapMarker->marker = $this->arrMapMarkers;
+				$objTemplateMapMarker->mapId = $this->intMapId;
+				$objTemplateMap->markerCode = $objTemplateMapMarker->parse();
+			}			
 		}
 		return $objTemplateMap->parse();
 	}
@@ -348,7 +357,9 @@ abstract class JBLocationsMap extends Frontend {
             'GPS'           => ($this->boolUseGPSSensor === true) ? 'true' : 'false',
             'controller'    => ($this->boolUseMapController === true) ? 'true' : 'false',
             'controllerType'=> &JBLocationsMap::$arrMapControlTypes[$this->intControllerType],
+            // TODO: add user map code
             //'userCode'      => &$this->strMapUserCode,
+            // TODO: add user url code
             //'URLparams'     => &$this->strMapURLParams,
             'zoom'          => &$this->intMapZoom,
             'autoZoom'      => &$this->boolMapAutoZoom,

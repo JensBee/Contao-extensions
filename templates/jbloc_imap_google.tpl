@@ -55,17 +55,19 @@ $out.="\n".'</noscript>'."\n";
 $out.='</div>'; // map container
 
 // marker container
-$out.='<div class="jbloc_map_marker block" style="float:left;">';
-if ($this->map['headlineMarker']) {
-	$out .= '<'.$this->map['headlineMarker']['unit'].' class="s_small">';
-	$out .= $this->map['headlineMarker']['value'];
-	$out .= '</'.$this->map['headlineMarker']['unit'].'>';
+if ($this->map['markerExternal']) {
+	$out.='<div class="jbloc_map_marker block" style="float:left;">';
+	if ($this->map['headlineMarker']) {
+		$out .= '<'.$this->map['headlineMarker']['unit'].' class="s_small">';
+		$out .= $this->map['headlineMarker']['value'];
+		$out .= '</'.$this->map['headlineMarker']['unit'].'>';
+	}
+	// output external marker code
+	if ($this->map['markerExternal'] && sizeof($this->marker) > 0) {
+		$out .= $this->markerCode;
+	}
+	$out.='</div>'; // marker container
 }
-// output external marker code
-if ($this->map['markerExternal'] && sizeof($this->marker) > 0) {
-	$out .= $this->markerCode;
-}
-$out.='</div>'; // marker container
 
 $out.='</div>'; // main container
 

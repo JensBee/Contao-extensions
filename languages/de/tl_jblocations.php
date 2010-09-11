@@ -47,6 +47,9 @@ $GLOBALS['TL_LANG']['tl_jblocations_maps']['description'] = array(
 $GLOBALS['TL_LANG']['tl_jblocations']['map']['chooser'] = array (
     'Kartenvorlage',
     'Legt fest, welche Karte als Vorlage für die Darstellung dienen soll.');
+$GLOBALS['TL_LANG']['tl_jblocations']['map']['Template'] = array (
+    'Template',
+    'Template für die Kartendarstellung.');
 // Location-types
 $GLOBALS['TL_LANG']['tl_jblocations']['locationtype']['css_name'] 	= 'Name';
 $GLOBALS['TL_LANG']['tl_jblocations']['locationtype']['css_class']	= 'Klasse';

@@ -83,7 +83,7 @@ class CalendarJBLocations extends JBLocations {
 				
 				// loop through locations
 				for($i = 0; $i < sizeof($arrLocationList); $i++){
-					$arrLocationIds[] = $arrLocationList[$i][0];				
+					$arrLocationIds[] = $arrLocationList[$i][0];
 					$arrEventLocations[$i] = $jbLocations->
 						getLocationDataArrayById($arrLocationList[$i][0]);
 					$arrEventLocations[$i]['class'] =
@@ -106,8 +106,7 @@ class CalendarJBLocations extends JBLocations {
 	 */
 	function getEvent(&$objTemplate, $strTemplate) {
 		// check if we are displaying events
-		if (strncmp($strTemplate, 'event_', strlen('event_')) == 0) {
-			echo 'seek:'.$objTemplate->parent->jblocations_map_published;			
+		if (strncmp($strTemplate, 'event_', strlen('event_')) == 0) {		
 			$objMapData = $this->getCalendarMap($objTemplate->pid);
 			if (!$objMapData->jblocations_map_published || $objMapData->jblocations_map <= 0) {
 				return;
@@ -121,7 +120,6 @@ class CalendarJBLocations extends JBLocations {
 				// check if we are on full event view, if so: render map
 				if (!$objTemplate->link) {					
 					$objMap = $this->generateMap($objTemplate->id, $objMapData->jblocations_map);					
-					$objMap->setMapTypeSwitchAllowed(true);
 					$objMap->addMarkers($arrEventData['mapMarker']);
 					$objMap->compile();
 

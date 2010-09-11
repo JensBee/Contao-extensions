@@ -45,13 +45,19 @@ class ModuleJBLocationsMap extends Module {
 	protected $strTemplate = 'mod_jbloc_map';
 
 	/**
+	 * JBLocations instance for this class
+	 * @var unknown_type
+	 */
+	protected $classJBLocations;
+	
+	/**
 	 * Display a wildcard in the back end
 	 * @return string
 	 */
 	public function generate() {
 		if (TL_MODE == 'BE') {
 			$objTemplate = new backendTemplate('be_wildcard');
-			$objTemplate->wildcard = '### '.$GLOBALS['TL_LANG']['FMD']['jb_locations_map'][0].' ###<br>'.$this->title;
+			$objTemplate->wildcard = '### '.$GLOBALS['TL_LANG']['FMD']['jblocations_map'][0].' ###<br>'.$this->name;
 
 			return $objTemplate->parse();
 		}
@@ -59,10 +65,44 @@ class ModuleJBLocationsMap extends Module {
 	}
 
 	/**
+	 * Compile location data into associative array	 
+	 * @param string Serialized location array
+	 * @return array Structured location data
+	 */
+	protected function compileLocations(&$strLocations) {	
+		$arrLocations = unserialize($strLocations);
+		$arrLocationData = array();
+		// loop through locations
+		for($i = 0; $i < sizeof($arrLocations); $i++){
+			$arrLocationData[$i] = $this->classJBLocations->
+				getLocationDataArrayById($arrLocations[$i][0]);
+			$arrLocationData[$i]['class'] =
+				$this->classJBLocations->getLocationTypeArrayById($arrLocations[$i][1]);
+		}
+		return $arrLocationData;
+	}
+	
+	/**
 	 * Generate module
 	 */
 	protected function compile() {
+		if($this->jblocations_map_template) {
+			$this->strTemplate = $this->jblocations_map_template;
+			$this->Template = new FrontendTemplate($this->strTemplate);			
+		}
 		
+		$this->classJBLocations = new JBLocations();
+		$objMap = $this->classJBLocations->generateMap($this->id, $this->jblocations_map);
+		
+		if ($this->jblocations_published) {
+			$arrLocationData = $this->compileLocations($this->jblocations_list);
+			$objMap->addMarkers($arrLocationData);
+		}
+		$objMap->compile();
+
+		$this->Template->map = array(
+			'code' => $objMap->getMapCode()
+		);
 	}
 }
 

@@ -42,6 +42,8 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['jblocations_map'] =
 	'{jblocations_mapconfig_legend},'.
 		'jblocations_map,'.
 		'jblocations_published;'.
+	'{template_legend:hide},'.
+		'jblocations_map_template;'.
 	'{protected_legend:hide},'.
 		'protected;'.
 	'{expert_legend:hide},'.
@@ -69,5 +71,12 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_published'] 			= $GLOBALS
 $GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_published']['label']	= &$GLOBALS['TL_LANG']['tl_jblocations']['locations']['publish'];
 // Map chooser
 $GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_map'] = $GLOBALS['TL_DCA']['tl_jblocations']['map_chooser'];
-
+// Template
+$GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_map_template'] = array (
+	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations']['map']['Template'],
+	'default'	=> 'mod_jbloc_map',
+	'exclude'	=> true,
+	'inputType'	=> 'select',
+	'options'	=> $this->getTemplateGroup('mod_jbloc_map')
+);
 ?>
