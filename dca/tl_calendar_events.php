@@ -46,7 +46,7 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jbeventstaff_id'] = array (
     'label'         => &$GLOBALS['TL_LANG']['tl_calendar_events']['jbeventstaff_id'],
 	'exclude'       => true,
 	'inputType'     => 'select',
-	'foreignKey'    => 'tl_calendar_staff.title',
+	'foreignKey'    => 'tl_jbeventstaff.title',
 	'eval'          => array('mandatory'=>true)
 );
 
