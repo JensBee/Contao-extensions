@@ -36,9 +36,10 @@
  * @package    Controller
  */
 class JBEventStaff extends Frontend {
+	protected $staffData = array();
 	
-    protected function getStaffData($staffId) {
-        if (!isset($staffData[$staffId])) {
+    public function getStaffData($staffId) {
+        if (!isset($this->staffData[$staffId])) {
             $sData = $this->Database->prepare("SELECT title,details,link FROM tl_jbeventstaff WHERE id=?")
                 ->limit(1)
 				->execute(intval($staffId));
