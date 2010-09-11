@@ -28,7 +28,7 @@
 
 $GLOBALS['TL_LANG']['MOD']['jb_locations_group']    = 'Events & Orte'; 
 $GLOBALS['TL_LANG']['MOD']['jb_locations_coords']   = array('Orte', 'Orte für die Darstellung auf Karten verwalten.');
-$GLOBALS['TL_LANG']['MOD']['jb_locations_types']    = array('Ort-Kategorien', 'Kategorien für Orte verwalten.');
+$GLOBALS['TL_LANG']['MOD']['jb_locations_types']    = array('Kategorien', 'Kategorien für Orte verwalten.');
 $GLOBALS['TL_LANG']['MOD']['jb_locations_maps']     = array('Karten', 'Karten mit Orten verwalten.');
 
 ?>

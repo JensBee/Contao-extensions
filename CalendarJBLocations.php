@@ -43,7 +43,7 @@ class CalendarJBLocations extends JBLocations {
 	 * @param integer Query result limit
 	 * @return object Database result
 	 */
-	protected function getLocationListByEventId($strEventId, $limit='') {
+	public function getLocationListByEventId($strEventId, $limit='') {
 		$query = 'SELECT id, jblocations_list, jblocations_published FROM tl_calendar_events WHERE id IN ('.$strEventId.')';
 		if ($limit) {
 			return $this->Database->prepare($query)->limit(intval($limit))->execute();
@@ -67,7 +67,7 @@ class CalendarJBLocations extends JBLocations {
 	 * @param boolean If true only return published data
 	 * @return array Structured location data
 	 */
-	protected function compileLocations($objEventData, $pid, $boolPublished=true) {
+	public function compileLocations($objEventData, $pid, $boolPublished=true) {
 		$jbLocations = new JBLocations();
 		$arrEventIds = array();
 		$arrEventLocations = array();

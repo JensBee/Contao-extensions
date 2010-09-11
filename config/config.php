@@ -33,15 +33,15 @@ array_insert($GLOBALS['BE_MOD'], 1, array (
     'jb_locations_group' => array (
         'jb_locations_coords' => array (
             'tables' => array('tl_jblocations_coords'),
-            'icon'   => 'system/modules/jb_locations/icon_loc.png'
+            'icon'   => 'system/modules/jb_locations/img/icon_locations.png'
         ),
         'jb_locations_types' => array (
             'tables' => array('tl_jblocations_types'),
-            'icon'   => 'system/modules/jb_locations/icon_loctype.png'
+            'icon'   => 'system/modules/jb_locations/img/icon_location_types.png'
         ),
         'jb_locations_maps' => array (
             'tables' => array('tl_jblocations_maps'),
-            'icon'   => 'system/modules/jb_locations/icon_maps.png'
+            'icon'   => 'system/modules/jb_locations/img/icon_location_maps.png'
         ),
     )
 ));
@@ -51,6 +51,11 @@ if ($GLOBALS['BE_MOD']['content']['calendar']) {
         'calendar' => $GLOBALS['BE_MOD']['content']['calendar']
     ));
     unset($GLOBALS['BE_MOD']['content']['calendar']);
+}
+// integrate event-staff
+if (is_array($GLOBALS['BE_MOD']['content']['jb_eventstaff'])) {
+	$GLOBALS['BE_MOD']['jb_locations_group']['jb_eventstaff'] = $GLOBALS['BE_MOD']['content']['jb_eventstaff'];
+    unset($GLOBALS['BE_MOD']['content']['jb_eventstaff']);
 }
 
 // Backend form fields
