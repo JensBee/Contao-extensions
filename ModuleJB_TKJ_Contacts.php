@@ -84,7 +84,6 @@ class ModuleJB_TKJ_Contacts extends Module {
 		$arrStaffGroups = unserialize($this->jb_tkjcontacts_groups);
 		$strStaffData = implode(', ', unserialize($this->jb_tkjcontacts_data));
 
-		$arrStaffData = array();		
 		$objStaffData = $this->queryStaffData($strStaffData, $arrStaffGroups);
 		
 		$this->Template->headline = unserialize($this->headline);

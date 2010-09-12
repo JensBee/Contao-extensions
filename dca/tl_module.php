@@ -40,6 +40,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['jb_tkjcontacts'] =
 		'jb_tkjcontacts_groups,'.
 		'jb_tkjcontacts_data;'.
 	'{template_legend:hide},'.
+		'jb_tkjcontacts_link,'.
 		'jb_tkjcontacts_template;'.
 	'{protected_legend:hide},'.
 		'protected;'.
@@ -80,5 +81,11 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['jb_tkjcontacts_data'] = array (
 		'email'			=> 'E-Mail', 
 		'website'		=> 'Website'
 	),
+);
+// output contact link
+$GLOBALS['TL_DCA']['tl_module']['fields']['jb_tkjcontacts_link'] = array (
+	'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['jb_tkjcontacts_link'],
+	'exclude'   	=> true,
+	'inputType' 	=> 'checkbox',
 );
 ?>

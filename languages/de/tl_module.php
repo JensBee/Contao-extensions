@@ -38,6 +38,9 @@ $GLOBALS['TL_LANG']['tl_module']['jb_tkjcontacts_groups'] = array(
 	'Benutzergruppen',
 	'Wählen Sie die Benutzergruppen, aus denen Personen angezeigt werden sollen.');
 $GLOBALS['TL_LANG']['tl_module']['jb_tkjcontacts_data'] = array(
-	'Angezeigte Benutzeraten',
+	'Angezeigte Benutzerdaten',
 	'Wählen Sie welche Daten über die Benutzer ausgegeben werden sollen.');
+$GLOBALS['TL_LANG']['tl_module']['jb_tkjcontacts_link'] = array(
+	'Kontakt Link anzeigen',
+	'Legt fest, ob ein Link zur Kontaktseite ausgegeben wird.');
 ?>

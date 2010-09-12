@@ -14,4 +14,5 @@ CREATE TABLE `tl_module` (
   `jb_tkjcontacts_data` varchar(255) NOT NULL default '',
   `jb_tkjcontacts_template` varchar(255) NOT NULL default '',
   `jb_tkjcontacts_groups` varchar(255) NOT NULL default '',
+  `jb_tkjcontacts_link` char(1) NOT NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
