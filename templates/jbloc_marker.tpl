@@ -18,5 +18,5 @@
   	$out.='</div>';
   }  
     
-  echo $out;
+  echo '<!-- indexer::stop -->'.$out.'<!-- indexer::continue -->';
 ?>

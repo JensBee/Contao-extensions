@@ -52,6 +52,6 @@
   }
 
   $out.='</tbody></table>';
-  echo $out;
+  echo '<!-- indexer::stop -->'.$out.'<!-- indexer::continue -->';;
 
 ?>

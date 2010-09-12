@@ -175,5 +175,5 @@ $out.='</script>';
 // finished
 $out.="\n";
 
-echo $out;
+echo '<!-- indexer::stop -->'.$out.'<!-- indexer::continue -->';
 ?>
