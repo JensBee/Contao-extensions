@@ -54,9 +54,22 @@ class ModuleJB_TKJ_Contacts extends Module {
 		return parent::generate();
 	}
 	
-	protected function queryStaffData($strSelect, $intId) {
-		return $this->Database->prepare('SELECT '.$strSelect.' FROM tl_member WHERE id=?')
-			->execute(intval($intId))->fetchAssoc();
+	protected function queryStaffData($strSelect, $arrIds) {
+		// Filter groups
+		$strWhere = '';
+		$arrValues = array();
+		$count = sizeof($arrIds)-1;		
+		for ($i=0; $i<=$count; $i++) {
+			if ($i < $count) {
+				$strWhere .= "groups LIKE ? OR ";
+				$arrValues[] = '%"' . $arrIds[$i] . '"%';
+			} else {
+				$strWhere .= "groups LIKE ? ";
+				$arrValues[] = '%"' . $arrIds[$i] . '"%';
+			}
+		}
+		return $this->Database->prepare('SELECT '.$strSelect.' FROM tl_member WHERE ('.$strWhere.')')
+			->execute($arrValues);		
 	}
 	
 	/**
@@ -71,14 +84,11 @@ class ModuleJB_TKJ_Contacts extends Module {
 		$arrStaffGroups = unserialize($this->jb_tkjcontacts_groups);
 		$strStaffData = implode(', ', unserialize($this->jb_tkjcontacts_data));
 
-		$arrStaffData = array();
+		$arrStaffData = array();		
+		$objStaffData = $this->queryStaffData($strStaffData, $arrStaffGroups);
 		
-		foreach ($arrStaffGroups as $intStaffGroup) {
-			$arrStaffData[] = $this->queryStaffData($strStaffData, $intStaffGroup);
-echo $intStaffGroup.'|';
-		}
 		$this->Template->headline = unserialize($this->headline);
-		$this->Template->jb_tkj_contacts = $arrStaffData;
+		$this->Template->jb_tkj_contacts = $objStaffData->fetchAllAssoc();
 	}
 }
 
