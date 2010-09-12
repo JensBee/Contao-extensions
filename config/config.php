@@ -30,5 +30,4 @@
  * Front end modules
  */
 $GLOBALS['FE_MOD']['news']['newsreader'] = 'NewsSeqPager';
-
 ?>
