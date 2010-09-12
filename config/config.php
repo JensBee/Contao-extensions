@@ -31,7 +31,7 @@
 // Back end module
 $GLOBALS['BE_MOD']['content']['pagenavbuilder'] = array(
     'tables'    => array('tl_pagenavbuilder'),
-    'icon'      => 'system/modules/pagenav_builder/icon.png'
+    'icon'      => 'system/modules/jb_pagenav_builder/icon.png'
 );
 
 // Content Element
