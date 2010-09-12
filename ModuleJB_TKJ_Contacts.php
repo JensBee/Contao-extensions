@@ -86,6 +86,7 @@ class ModuleJB_TKJ_Contacts extends Module {
 
 		$objStaffData = $this->queryStaffData($strStaffData, $arrStaffGroups);
 		
+		$this->Template->showLink = $this->jb_tkjcontacts_link;
 		$this->Template->headline = unserialize($this->headline);
 		$this->Template->jb_tkj_contacts = $objStaffData->fetchAllAssoc();
 	}

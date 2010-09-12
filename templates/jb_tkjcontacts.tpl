@@ -2,7 +2,7 @@
   	$out='';
 
   	$out.= '<div class="block jb_tkj_contacts '.$this->class.'" style="overflow:visible;margin-top:4em;">';
-  	  	
+  	
   	foreach($this->jb_tkj_contacts as $contact) {
 		if ($contact['avatar']) {
 			$out.= 	'<div align="center">'.
@@ -14,7 +14,7 @@
 		$out.= 	'<div style="margin-top:-30px;margin-right:1em;">'.
 					'<div style="border-bottom:1px dotted #757575; font-style:italic;">'.$this->headline.'</div>'.				
 					'<div style="float:left;"><strong>'.$contact['firstname'].' '.$contact['lastname'].'</strong></div>';
-		if ($this->jb_tkjcontacts_link) {
+		if ($this->showLink) {
 			$out.= 	'<div style="float:right;"><a href="#" class="link_forward">Kontakt</a></div>';
 		}
 		$out.=		'<div class="ce_text">'.
