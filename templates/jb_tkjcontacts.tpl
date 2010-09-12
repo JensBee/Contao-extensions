@@ -1,7 +1,7 @@
 <?php
   	$out='';
-echo 'CNT: '.sizeof($this->jb_tkj_contacts);
-  	$out.= '<div class="block jb_tkj_contacts '.$this->class.'" style="overflow:visible;margin-top:2em;">';
+
+  	$out.= '<div class="block jb_tkj_contacts '.$this->class.'" style="overflow:visible;margin-top:4em;">';
   	  	
   	foreach($this->jb_tkj_contacts as $contact) {
 		if ($contact['avatar']) {
@@ -11,7 +11,7 @@ echo 'CNT: '.sizeof($this->jb_tkj_contacts);
 					'</div>';
 			$out.= '</div>'; 
 		}
-		$out.= 	'<div style="margin-top:-30px;">'.
+		$out.= 	'<div style="margin-top:-30px;margin-right:1em;">'.
 					'<div style="border-bottom:1px dotted #757575; font-style:italic;">'.$this->headline.'</div>'.				
 					'<div style="float:left;"><strong>'.$contact['firstname'].' '.$contact['lastname'].'</strong></div>'.
 					'<div style="float:right;"><a href="#" class="link_forward">Kontakt</a></div>'.
@@ -21,8 +21,7 @@ echo 'CNT: '.sizeof($this->jb_tkj_contacts);
 				'</div>';
   	}
   	
-  	
   	$out.= '</div>';
 	
-  	echo $out;
+  	echo '<!-- indexer::stop -->'.$out.'<!-- indexer::continue -->';
 ?>
