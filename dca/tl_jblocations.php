@@ -39,7 +39,6 @@ $GLOBALS['TL_DCA']['tl_jblocations']['locations_list'] = array (
     'exclude'   => true,
     'inputType' => 'jb_locations_wizard',
     'eval'      => array(
-//        'submitOnChange'=> true,
         'style'			=> 'width:200px;',
         'labels'		=> array (
             &$GLOBALS['TL_LANG']['tl_jblocations']['locationtype']['css_name'], 

@@ -95,8 +95,7 @@ var WizardJBLocations = {
 		
 		$arrRows = $elTBody.getChildren();
 		for (var $i=0; $i<$arrRows.length; $i++) {
-			$arrRows[$i].getElements('select').each(function($el, $idx) {
-				alert($el.name.replace(/\[[0-9]+\][[0-9]+\]/ig, '[' + $i + '][' + $idx + ']'));
+			$arrRows[$i].getElements('select').each(function($el, $idx) {				
 				$el.name = $el.name.replace(/\[[0-9]+\][[0-9]+\]/ig, '[' + $i + '][' + $idx + ']');
 			});
 		}
