@@ -73,10 +73,20 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_published']['label']	= &$
 $GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_map'] = $GLOBALS['TL_DCA']['tl_jblocations']['map_chooser'];
 // Template
 $GLOBALS['TL_DCA']['tl_module']['fields']['jblocations_map_template'] = array (
-	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations']['map']['Template'],
-	'default'	=> 'mod_jbloc_map',
-	'exclude'	=> true,
-	'inputType'	=> 'select',
-	'options'	=> $this->getTemplateGroup('mod_jbloc_map')
+	'label'				=> &$GLOBALS['TL_LANG']['tl_jblocations']['map']['Template'],
+	'default'			=> 'mod_jbloc_map',
+	'exclude'			=> true,
+	'inputType'			=> 'select',
+	'options_callback'	=> array('tl_module_jb_locations', 'getTemplates'),
 );
+
+class tl_module_jb_locations extends Backend {
+	/**
+	 * Get template over theme id
+	 * @param DataContainer $dc
+	 */
+	public function getTemplates(DataContainer $dc) {
+		return $this->getTemplateGroup('mod_jbloc_map', $dc->activeRecord->pid);
+	}
+}
 ?>

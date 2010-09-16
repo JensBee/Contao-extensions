@@ -41,77 +41,67 @@ var WizardJBLocations = {
 	 * @param string
 	 * @param string
 	 */
-	wizardJBLocations: function(el, command, id) {
-		var table = $(id);
-		var thead = table.getFirst();
-		var tbody = thead.getNext();
-		var rows = tbody.getChildren();
-		var parentTd = $(el).getParent();
-		var parentTr = parentTd.getParent();
-		var cols = parentTr.getChildren();
-		var index = 0;
-		var selectElement = null;
-		for (var i=0; i<cols.length; i++) {
-			if (cols[i] == parentTd) {
+	wizardJBLocations: function($el, $command, $id) {
+		var $elTBody 				= $($id).getFirst().getNext();
+		var $arrRows 				= $elTBody.getChildren();
+		var $elTParentTd 		= $($el).getParent();
+		var $elTParentTr 		= $elTParentTd.getParent();		
+		var $arrTCols 			= $elTParentTr.getChildren();
+		var $intIndex 			= 0;
+		
+		for (var $i=0; $i<$arrTCols.length; $i++) {
+			if ($arrTCols[$i] == $elTParentTd) {
 				break;
 			}
-			index++;
+			$intIndex++;
 		}
 
 		Backend.getScrollOffset();
-
-		switch (command) {
+		
+		switch ($command) {
 			case 'rnew':
-				var tr = new Element('tr');
-				var childs = parentTr.getChildren();
-
-				for (var i=0; i<childs.length; i++) {
-					var next = childs[i].clone(true).injectInside(tr);
-					if (!selectElement) selectElement = next.getFirst();
-					next.getFirst().value = '';
+				var $elTr = new Element('tr');
+				var $childs = $elTParentTr.getChildren();				
+				// reset new form elements
+				for (var $i=0; $i<$childs.length; $i++) {					
+					var $elNext = $childs[$i].clone().injectInside($elTr);
+					$elNext.getElements('select').each(function($el) {
+						$el.value = '';
+					});					
 				}
-				tr.injectAfter(parentTr);
+				$elTr.injectAfter($elTParentTr);
+				// give new element the focus
+				$elTr.getElement('select').focus();
 				break;
-
 			case 'rcopy':
-				var tr = new Element('tr');
-				var childs = parentTr.getChildren();
-
-				for (var i=0; i<childs.length; i++) {
-					var next = childs[i].clone(true).injectInside(tr);
-					if (!selectElement) selectElement = next.getFirst();
-					next.getFirst().value = childs[i].getFirst().value;
+				var $elTr = new Element('tr');
+				var $arrChilds = $elTParentTr.getChildren();
+				// clone current row
+				for (var $i=0; $i<$arrChilds.length; $i++) {
+					$arrChilds[$i].clone(true).injectInside($elTr);
 				}
-				tr.injectAfter(parentTr);
+				$elTr.injectAfter($elTParentTr);
 				break;
-
 			case 'rup':
-				parentTr.getPrevious() ? parentTr.injectBefore(parentTr.getPrevious()) : parentTr.injectInside(tbody);
+				$elTParentTr.getPrevious() ? $elTParentTr.injectBefore($elTParentTr.getPrevious()) : $elTParentTr.injectInside($elTBody);
 				break;
-
 			case 'rdown':
-				parentTr.getNext() ? parentTr.injectAfter(parentTr.getNext()) : parentTr.injectBefore(tbody.getFirst().getNext());
+				$elTParentTr.getNext() ? $elTParentTr.injectAfter($elTParentTr.getNext()) : $elTParentTr.injectBefore($elTBody.getFirst().getNext());
 				break;
-
 			case 'rdelete':
-				(rows.length > 1) ? parentTr.dispose() : null;
+				($arrRows.length > 1) ? $elTParentTr.dispose() : null;
 				break;
 		}
-
-		rows = tbody.getChildren();
-
-		for (var i=0; i<rows.length; i++) {
-			var childs = rows[i].getChildren();
-
-			for (var j=0; j<childs.length; j++) {
-				var first = childs[j].getFirst();
-				if (first && first.type.toLowerCase() == 'text') {
-					first.name = first.name.replace(/\[[0-9]+\][[0-9]+\]/ig, '[' + i + '][' + j + ']')
-				}
-			}
+		
+		$arrRows = $elTBody.getChildren();
+		for (var $i=0; $i<$arrRows.length; $i++) {
+			$arrRows[$i].getElements('select').each(function($el, $idx) {
+				alert($el.name.replace(/\[[0-9]+\][[0-9]+\]/ig, '[' + $i + '][' + $idx + ']'));
+				$el.name = $el.name.replace(/\[[0-9]+\][[0-9]+\]/ig, '[' + $i + '][' + $idx + ']');
+			});
 		}
-		if (selectElement) {
-			selectElement.select();
-		}
+
+		// avoid page loading
+		return false;
 	}
 };

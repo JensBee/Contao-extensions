@@ -174,10 +174,11 @@ $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_template'] = array (
 );
 
 $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_marker_template'] = array (
-	'label'     	=> &$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_marker_template'],
-	'exclude'   	=> true,
-	'inputType' 	=> 'select',
-	'options'		=> $this->getTemplateGroup('jbloc_marker'),
+	'label'     		=> &$GLOBALS['TL_LANG']['tl_jblocations_maps']['map_marker_template'],
+	'default'			=> 'jbloc_marker',
+	'exclude'   		=> true,
+	'inputType' 		=> 'select',
+	'options_callback'	=> array('tl_jblocations_maps', 'getMarkerTemplates'),
 );
 
 $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_width'] = array (
@@ -196,4 +197,13 @@ $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_height'] = array (
 	'eval'		=> array('rgxp'=>digit,'maxlength'=>64)
 );
 
+class tl_jblocations_maps extends Backend {
+	/**
+	 * Get template over theme id
+	 * @param DataContainer $dc
+	 */
+	public function getMarkerTemplates(DataContainer $dc) {
+		return $this->getTemplateGroup('jbloc_marker', $dc->activeRecord->pid);
+	}
+}
 ?>

@@ -321,8 +321,12 @@ abstract class JBLocationsMap extends Frontend {
 			$objTemplateMap->marker = $this->arrMapMarkers;
 			if ($this->boolShowExternalMarker) {
 				$objTemplateMapMarker = new FrontendTemplate($strTemplateMarker);
-				$objTemplateMapMarker->marker = $this->arrMapMarkers;
-				$objTemplateMapMarker->mapId = $this->intMapId;
+				$objTemplateMapMarker->map = array(
+					'width' 	=> &$this->strMapWidth,
+					'height'	=> &$this->strMapHeight,
+					'id'		=> &$this->intMapId
+				);
+				$objTemplateMapMarker->marker = $this->arrMapMarkers;				
 				$objTemplateMap->markerCode = $objTemplateMapMarker->parse();
 			}			
 		}

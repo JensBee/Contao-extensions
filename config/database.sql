@@ -21,7 +21,7 @@ CREATE TABLE `tl_calendar` (
 -- 
 CREATE TABLE `tl_calendar_events` (
   `jblocations_published` char(1) NOT NULL default '',
-  `jblocations_list` text NULL,
+  `jblocations_list` blob NULL,
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- 
@@ -93,7 +93,7 @@ CREATE TABLE `tl_jblocations_types` (
 -- 
 CREATE TABLE `tl_module` (
   `jblocations_published` char(1) NOT NULL default '',
-  `jblocations_list` text NULL,
+  `jblocations_list` blob NULL,
   `jblocations_map` int(10) unsigned NOT NULL default '0',
   `jblocations_map_template` varchar(255) NOT NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

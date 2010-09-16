@@ -82,7 +82,7 @@ class CalendarJBLocations extends JBLocations {
 				$arrLocationIds = array();
 				
 				// loop through locations
-				for($i = 0; $i < sizeof($arrLocationList); $i++){
+				for($i = 0; $i < sizeof($arrLocationList); $i++){					
 					$arrLocationIds[] = $arrLocationList[$i][0];
 					$arrEventLocations[$i] = $jbLocations->
 						getLocationDataArrayById($arrLocationList[$i][0]);
@@ -106,19 +106,20 @@ class CalendarJBLocations extends JBLocations {
 	 */
 	function getEvent(&$objTemplate, $strTemplate) {
 		// check if we are displaying events
-		if (strncmp($strTemplate, 'event_', strlen('event_')) == 0) {		
+		if (strncmp($strTemplate, 'event_', strlen('event_')) == 0) {			
 			$objMapData = $this->getCalendarMap($objTemplate->pid);
-			if (!$objMapData->jblocations_map_published || $objMapData->jblocations_map <= 0) {
+			if (!$objMapData->jblocations_map_published || $objMapData->jblocations_map <= 0) {				
 				return;
 			}
 			$arrEventData = $this->compileLocations(
 				$this->getLocationListByEventId($objTemplate->id, 1),
 				$objTemplate->pid
 			);
-			if (count($arrEventData) > 1) {				
+			
+			if (count($arrEventData) > 1) {
 				$arrTemplateMap = array();
 				// check if we are on full event view, if so: render map
-				if (!$objTemplate->link) {					
+				if (!$objTemplate->more) {
 					$objMap = $this->generateMap($objTemplate->id, $objMapData->jblocations_map);					
 					$objMap->addMarkers($arrEventData['mapMarker']);
 					$objMap->compile();
@@ -132,7 +133,7 @@ class CalendarJBLocations extends JBLocations {
 					// always show marker data on other views
 					$arrTemplateMap['marker'] = &$arrEventData['mapMarker'];
 				}
-				$arrTemplateMap['map']['url'] = &$arrEventData['mapLink'];
+				$arrTemplateMap['map']['url'] = &$arrEventData['mapLink'];				
 				$objTemplate->jblocations = $arrTemplateMap;
 			}
 		}

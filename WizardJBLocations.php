@@ -143,7 +143,7 @@ class WizardJBLocations extends Widget {
                     '&amp;id='.$this->currentRecord
                 ),
 				'title' => specialchars($GLOBALS['TL_LANG'][$this->strTable][$button][0]),
-				'onclick' => 'WizardJBLocations.wizardJBLocations(this, \''.$button.'\', \'ctrl_'.$this->strId.'\'); return false;',
+				'onclick' => 'WizardJBLocations.wizardJBLocations(this, \''.$button.'\', \'ctrl_'.$this->strId.'\');return false;',
 				'img' => $this->generateImage(
                     substr($button, 1).'.gif', 
                     $GLOBALS['TL_LANG'][$this->strTable][$button][0], 

@@ -110,9 +110,9 @@ class JBLocations extends Frontend {
             case JBLocations::MAPPROVIDER_OSM:
                 $strTpl .= 'osm';
                 break;
-        }
+        }    	
         $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['map_template']['options'] = 
-        	$this->getTemplateGroup($strTpl);;
+        	$this->getTemplateGroup('jb_imap_'.$strTpl, $dc->activeRecord->pid);
         return $varValue;
     }
 

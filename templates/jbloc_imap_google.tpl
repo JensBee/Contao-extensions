@@ -31,11 +31,11 @@ $out.="\n";
  * Static map
  */
 $out.='<noscript>'."\n";
-$out.='<img src="http://maps.google.com/staticmap?';
-$out.='&size='.preg_replace('/px/','',$this->map['mapWidth']).'x'.preg_replace('/px/','',$this->map['mapHeight']);
-$out.='&format=png';
+$out.='<img alt="Google maps" src="http://maps.google.com/staticmap?';
+$out.='&amp;size='.preg_replace('/px/','',$this->map['mapWidth']).'x'.preg_replace('/px/','',$this->map['mapHeight']);
+$out.='&amp;format=png';
 if ($this->map['markerMap'] && sizeof($this->marker) > 0) {
-	$out.='&markers=';
+	$out.='&amp;markers=';
 	$intIconNum = 1;
 	for($i = 0; $i < sizeof($this->marker); $i++){
        	$out.=preg_replace('/\s/','',$this->marker[$i]['coords']);
@@ -46,10 +46,10 @@ if ($this->map['markerMap'] && sizeof($this->marker) > 0) {
        	}
 	}
 }    
-$out.='&hl='.$this->map['language'];
-$out.='&sensor='.$this->map['GPS'];
+$out.='&amp;hl='.$this->map['language'];
+$out.='&amp;sensor='.$this->map['GPS'];
 //$out.='&maptype='.$this->view;
-$out.='&key='.$this->map['key'];
+$out.='&amp;key='.$this->map['key'];
 $out.='"/>';
 $out.="\n".'</noscript>'."\n";
 $out.='</div>'; // map container
@@ -76,11 +76,11 @@ $out.='</div>'; // main container
  */
 $out.='<script '.
 	'src="http://maps.google.com/maps?'.
-	'&file=api'.
-	'&v=2'.
-	'&key='.$this->map['key'].
-	'&sensor='.$this->map['GPS'].
-	'&hl='.$this->map['language'].
+	'&amp;file=api'.
+	'&amp;v=2'.
+	'&amp;key='.$this->map['key'].
+	'&amp;sensor='.$this->map['GPS'].
+	'&amp;hl='.$this->map['language'].
 	'" type="text/javascript"></script>';
 
 $out.="\n";
