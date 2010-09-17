@@ -48,7 +48,6 @@ var WizardJBLocations = {
 		var $elTParentTr 		= $elTParentTd.getParent();		
 		var $arrTCols 			= $elTParentTr.getChildren();
 		var $intIndex 			= 0;
-		
 		for (var $i=0; $i<$arrTCols.length; $i++) {
 			if ($arrTCols[$i] == $elTParentTd) {
 				break;
@@ -92,14 +91,12 @@ var WizardJBLocations = {
 				($arrRows.length > 1) ? $elTParentTr.dispose() : null;
 				break;
 		}
-		
 		$arrRows = $elTBody.getChildren();
 		for (var $i=0; $i<$arrRows.length; $i++) {
 			$arrRows[$i].getElements('select').each(function($el, $idx) {				
 				$el.name = $el.name.replace(/\[[0-9]+\][[0-9]+\]/ig, '[' + $i + '][' + $idx + ']');
 			});
 		}
-
 		// avoid page loading
 		return false;
 	}

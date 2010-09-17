@@ -38,19 +38,22 @@ $this->loadDataContainer('tl_jblocations');
 $GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] = 
     str_replace(
         '{teaser_legend:hide}',
-        '{jblocations_legend:hide},jblocations_published;{teaser_legend:hide}',  
+        '{jblocations_legend:hide},'.
+    		'jblocations_published,'.
+        	'jblocations_list;'.
+        '{teaser_legend:hide}',  
         $GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default']
 );
 
 /**
  * Selectors
  */
-$GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['__selector__'][] = 'jblocations_published';
+//$GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['__selector__'][] = 'jblocations_published';
 
 /**
  * Subpalettes
  */
-$GLOBALS['TL_DCA']['tl_calendar_events']['subpalettes']['jblocations_published'] = 'jblocations_list';
+//$GLOBALS['TL_DCA']['tl_calendar_events']['subpalettes']['jblocations_published'] = 'jblocations_list';
 
 /**
  * Field definitions
