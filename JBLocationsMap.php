@@ -261,7 +261,7 @@ abstract class JBLocationsMap extends Frontend {
 				$this->arrHeadlineMarker = unserialize($objMapData->headline_marker);;
     		}
     		$this->strMapTemplate = $objMapData->map_template ? $objMapData->map_template : null;
-    		$this->boolShowMarker = $objMapData->markers_show ? true : false;
+    		$this->boolShowMarker = $objMapData->markers_show ? true : false;    		
     		$this->boolShowExternalMarker = $objMapData->markers_external_show ? true : false;      
     	}
     }
@@ -284,8 +284,8 @@ abstract class JBLocationsMap extends Frontend {
 	public function __get($strKey) {
 		switch ($strKey) {
 			default:
-				if(isset($this->$var)) {
-					return $this-$var;
+				if(isset($this->$strKey)) {
+					return $this->$strKey;
 				}
 				return null;
 				break;

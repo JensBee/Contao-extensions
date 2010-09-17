@@ -125,8 +125,8 @@ class CalendarJBLocations extends JBLocations {
 					$objMap->compile();
 
 					$arrTemplateMap['map']['code'] = $objMap->getMapCode();
-					// show markers on full view only on demans					
-					if ($objMap->boolShowMarker || $objMap->boolShowExternalMarker) {
+					// show markers on full view only on demand					
+					if ($objMap->boolShowMarker || $objMap->boolShowExternalMarker) {						
 						$arrTemplateMap['marker'] = &$arrEventData['mapMarker'];
 					}
 				} else {

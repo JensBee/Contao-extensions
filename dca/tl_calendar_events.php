@@ -59,8 +59,10 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] =
  * Field definitions
  */ 
 // Locations published?
-$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_published'] 			= $GLOBALS['TL_DCA']['tl_jblocations']['locations_published'];
-$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_published']['label']	= &$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_published'];
+$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_published'] = array (    
+    'inputType' => 'checkbox',
+	'label'		=> &$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_published'], 
+);
 // Map locations chooser
 $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_list'] 			= $GLOBALS['TL_DCA']['tl_jblocations']['locations_list'];
 $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['jblocations_list']['label'] = &$GLOBALS['TL_LANG']['tl_calendar_events']['jblocations_list'];
