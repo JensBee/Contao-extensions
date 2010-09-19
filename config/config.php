@@ -28,15 +28,18 @@
  * @filesource
  */
 
-// Backend module
-// Back end module
+/**
+ * Back end module
+ */
 $arrStaffConf = array(
     'tables' => array('tl_jbeventstaff'),
     'icon'   => 'system/modules/jb_eventstaff/icon.png'
 );
 $GLOBALS['BE_MOD']['content']['jb_eventstaff'] = $arrStaffConf;
 
-// Hooks
+/**
+ * Hooks
+ */
 $GLOBALS['TL_HOOKS']['generateFrontendTemplate'][] = array('CalendarJBEventStaff', 'getEvent');
 
 ?>

@@ -36,7 +36,7 @@ $GLOBALS['TL_LANG']['tl_calendar_events']['staff_legend'] = 'Veranstalter';
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_calendar_events']['staff_id']   = array('Veranstalter', 'Dem Event einen Veranstalter hinzufügen.');
-$GLOBALS['TL_LANG']['tl_calendar_events']['staff_set']   = array('Veranstalter hinzufügen', 'Dem Event einen Veranstalter hinzufügen.');
+$GLOBALS['TL_LANG']['tl_calendar_events']['jbeventstaff_id']   = array('Veranstalter', 'Dem Event einen Veranstalter hinzufügen.');
+$GLOBALS['TL_LANG']['tl_calendar_events']['jbeventstaff_published']   = array('Veranstalter hinzufügen', 'Dem Event einen Veranstalter hinzufügen.');
 
 ?>
