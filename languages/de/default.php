@@ -33,6 +33,7 @@ $GLOBALS['TL_LANG']['CTE']['googlemaps_locations']  = array('Ort', 'Bindet einen
 
 // Misc
 $GLOBALS['TL_LANG']['MSC']['jblocations']['show_marker_on_map'] = 'Auf der Karte anzeigen';
+$GLOBALS['TL_LANG']['MSC']['jblocations']['map_marker'] = 'Kartensymbol';
 
 // Fields
 $GLOBALS['TL_LANG']['tl_jblocations']['edit']   = 'Bearbeiten';

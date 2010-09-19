@@ -260,7 +260,7 @@ abstract class JBLocationsMap extends Frontend {
     		if ($objMapData->headline_marker) {				
 				$this->arrHeadlineMarker = unserialize($objMapData->headline_marker);;
     		}
-    		$this->strMapTemplate = $objMapData->map_template ? $objMapData->map_template : null;
+    		$this->strMapTemplate = $objMapData->map_template ? $objMapData->map_template : $this->strMapTemplate;
     		$this->boolShowMarker = $objMapData->markers_show ? true : false;    		
     		$this->boolShowExternalMarker = $objMapData->markers_external_show ? true : false;      
     	}
