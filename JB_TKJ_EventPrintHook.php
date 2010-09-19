@@ -37,7 +37,8 @@ require_once('tl_files/tkj-radsport/php/dateFormat.php');
  */
 class JB_TKJ_EventPrintHook extends Frontend {
 	
-	protected $cal_pid_wfahren = 5;
+	protected $cal_pid_wfahren = 5; // wanderfahren
+	protected $cal_pid_tfahren = 6; // tourenfahren
 	protected $styleFontSize = '9';
 	protected $colWidth = array (
 		'date' 		=> 50,
@@ -79,10 +80,22 @@ class JB_TKJ_EventPrintHook extends Frontend {
 	}
 	
 	public function printArticleAsPdfHook(&$strArticle, &$objArticle) {
-		if ($objArticle->id == '145') {
-			$arrDateNow = jb_formatDate(time());
+		// check if we print our lists
+		if ($objArticle->id == '145' || $objArticle->id == '174') {
 			
-			$strArticle = $this->getPageHeader('Radwanderfahren', $arrDateNow['year']);
+			// set correct header			
+			if ($objArticle->id == '145') {
+				$strArticle = $this->getPageHeader('Radwanderfahren', $arrDateNow['year']);
+				$objQueryEvent = $this->queryAllEvents($this->cal_pid_wfahren);
+				$objQueryTarget = $this->queryTargetPage($this->cal_pid_wfahren);
+			} elseif ($objArticle->id == '174') {
+				$strArticle = $this->getPageHeader('Radtourenfahren', $arrDateNow['year']);
+				$objQueryEvent = $this->queryAllEvents($this->cal_pid_tfahren);
+				$objQueryTarget = $this->queryTargetPage($this->cal_pid_tfahren);
+			}
+			
+			$arrDateNow = jb_formatDate(time());
+						
 			$strArticle.= '<table border="1" cellpadding="3" style="font-size:'.$this->styleFontSize.'pt;" >';
 			$strArticle.= '<tr style="font-weight:bold;font-size:'.($this->styleFontSize+1).'pt;">'.
 								'<td width="'.$this->colWidth['date'].'">Datum</td>'.
@@ -92,8 +105,7 @@ class JB_TKJ_EventPrintHook extends Frontend {
 								'<td width='.$this->colWidth['details'].'>Hinweise</td>'.
 							'</tr>';
 			
-			$objQueryEvent = $this->queryAllEvents($this->cal_pid_wfahren);
-			$objQueryTarget = $this->queryTargetPage($this->cal_pid_wfahren);
+			
 			$objCalLoc = new CalendarJBLocations();
 			$objStaff = new JBEventStaff();
 			
@@ -164,7 +176,7 @@ class JB_TKJ_EventPrintHook extends Frontend {
 			
 			// debug
 			//echo $strArticle;
-		}
+		} // check ids
 	}
 }
 
