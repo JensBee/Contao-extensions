@@ -33,5 +33,5 @@ CREATE TABLE `tl_pagenavbuilder` (
 
 CREATE TABLE `tl_content` (
   `pagenavbuilder` int(10) unsigned NOT NULL default '0',
-  `pagenavbuilder_template` varchar(32) NOT NULL default '',
+  `pagenavbuilder_template` varchar(255) NOT NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

@@ -28,13 +28,17 @@
  * @filesource
  */
 
-// Back end module
+/**
+ * Back end module
+ */
 $GLOBALS['BE_MOD']['content']['pagenavbuilder'] = array(
     'tables'    => array('tl_pagenavbuilder'),
     'icon'      => 'system/modules/jb_pagenav_builder/icon.png'
 );
 
-// Content Element
+/**
+ * Content Element
+ */
 $GLOBALS['TL_CTE']['links']['pagenavbuilder'] = 'ContentPageNavBuilder';
 
 ?>

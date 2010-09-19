@@ -26,7 +26,9 @@
  * @filesource
  */
 
-// Fields
+/**
+ * Fields
+ */
 $GLOBALS['TL_LANG']['tl_content']['pagenavbuilder'] = array(
     'Seitennavigation', 
     'Erstellt eine Navigationszeile für eine Seite.'

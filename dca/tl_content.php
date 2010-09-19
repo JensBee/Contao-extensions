@@ -40,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pagenavbuilder_template'] = array (
     'default'           => 'mod_pagenavbuilder_default',
     'exclude'           => true,
     'inputType'         => 'select',
-    'options'           => $this->getTemplateGroup('mod_pagenavbuilder'),
+    'options_callback'	=> array('tl_content_jb_pagenavbuilder', 'getTemplates'),
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pagenavbuilder'] = array (
@@ -51,4 +51,13 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pagenavbuilder'] = array (
 	'eval'          => array('mandatory'=>true)
 );
 
+class tl_content_jb_pagenavbuilder extends Backend {
+	/**
+	 * Get template over theme id
+	 * @param DataContainer $dc
+	 */
+	public function getTemplates(DataContainer $dc) {
+		$this->getTemplateGroup('mod_pagenavbuilder', $dc->activeRecord->pid);
+	}
+}
 ?>
