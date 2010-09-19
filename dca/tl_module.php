@@ -36,24 +36,34 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['newsreader'] = str_replace(
 
 // Add Fields
 $GLOBALS['TL_DCA']['tl_module']['fields']['news_seqnav_show'] = array (
-		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['jb_seqnav_show'],
-		'exclude'                 => true,
-		'inputType'               => 'checkbox'
+		'label'		=> &$GLOBALS['TL_LANG']['tl_module']['jb_seqnav_show'],
+		'exclude'	=> true,
+		'inputType'	=> 'checkbox'
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['news_seqnav_loadlatest'] = array (
-		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['jb_seqnav_loadlatest'],
-		'exclude'                 => true,
-		'inputType'               => 'checkbox'
+		'label'		=> &$GLOBALS['TL_LANG']['tl_module']['jb_seqnav_loadlatest'],
+		'exclude'	=> true,
+		'inputType'	=> 'checkbox'
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['news_seqnav_template'] = array (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['jb_seqnav_template'],
-	'default'                 => 'news_seqpager_default',
-	'exclude'                 => true,
-	'inputType'               => 'select',
-	'options'                 => $this->getTemplateGroup('news_seqpager'),
-	'eval'                    => array('tl_class'=>'w50')
+	'label'				=> &$GLOBALS['TL_LANG']['tl_module']['jb_seqnav_template'],
+	'default'			=> 'news_seqpager_default',
+	'exclude'			=> true,
+	'inputType'			=> 'select',
+	'options_callback'	=> array('tl_module_jb_newsseqpager', 'getTemplates'),
 );
 
+class tl_module_jb_newsseqpager extends Backend {
+	/**
+	 * Get template over theme id
+	 * @param DataContainer $dc
+	 */
+	public function getTemplates(DataContainer $dc) {
+		return (version_compare(VERSION.BUILD, '2.9.0', '>=')) ? 
+        		$this->getTemplateGroup('news_seqpager', $dc->activeRecord->pid) : 
+        		$this->getTemplateGroup('news_seqpager');
+	}
+}
 ?>
