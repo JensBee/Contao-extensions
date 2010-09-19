@@ -10,17 +10,19 @@
 							'<img style="margin-left:25px; margin-top:-20px; border:2px solid #ff8432;" title="'.$contact['firstname'].' '.$contact['lastname'].'" alt="Foto von '.$contact['firstname'].' '.$contact['lastname'].'" src="'.$contact['avatar'].'"/>'.
 						'</div>'.
 					'</div>'; 
+			$out.= 	'<div style="margin-top:-30px;margin-right:1em;">';
+		} else {
+			$out.= 	'<div style="margin-right:1em;">';
 		}
-		$out.= 	'<div style="margin-top:-30px;margin-right:1em;">'.
-					'<div style="border-bottom:1px dotted #757575; font-style:italic;">'.$this->headline.'</div>'.				
-					'<div style="float:left;"><strong>'.$contact['firstname'].' '.$contact['lastname'].'</strong></div>';
+		$out.= 			'<div style="border-bottom:1px dotted #757575; font-style:italic;">'.$this->headline.'</div>'.				
+						'<div style="float:left;"><strong>'.$contact['firstname'].' '.$contact['lastname'].'</strong></div>';
 		if ($this->showLink) {
-			$out.= 	'<div style="float:right;"><a href="#" class="link_forward">Kontakt</a></div>';
+			$out.= 		'<div style="float:right;"><a href="#" class="link_forward">Kontakt</a></div>';
 		}
-		$out.=		'<div class="ce_text">'.
-						$contact['description'].
-					'</div>'.
-				'</div>';
+		$out.=			'<div class="ce_text">'.
+							$contact['description'].
+						'</div>'.
+					'</div>';
   	}
   	
   	$out.= '</div>';

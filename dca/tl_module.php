@@ -61,11 +61,11 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['jb_tkjcontacts_groups'] = array (
 );
 // Template
 $GLOBALS['TL_DCA']['tl_module']['fields']['jb_tkjcontacts_template'] = array (
-	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations']['map']['Template'],
-	'default'	=> 'mod_jbloc_map',
-	'exclude'	=> true,
-	'inputType'	=> 'select',
-	'options'	=> $this->getTemplateGroup('jb_tkjcontacts')
+	'label'				=> &$GLOBALS['TL_LANG']['tl_jblocations']['map']['Template'],
+	'default'			=> 'jb_tkjcontacts',
+	'exclude'			=> true,
+	'inputType'			=> 'select',
+	'options_callback'	=> array('tl_module_jb_tkjcontacts', 'getTemplates')
 );
 // Visible data
 $GLOBALS['TL_DCA']['tl_module']['fields']['jb_tkjcontacts_data'] = array (
@@ -88,4 +88,16 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['jb_tkjcontacts_link'] = array (
 	'exclude'   	=> true,
 	'inputType' 	=> 'checkbox',
 );
+
+class tl_module_jb_tkjcontacts	extends Backend {
+	/**
+	 * Template over theme id
+	 */
+	public function getTemplates(DataContainer $dc) {
+		return (version_compare(VERSION.BUILD, '2.9.0', '>=')) ? 
+        		$this->getTemplateGroup('jb_tkjcontacts', $dc->activeRecord->pid) : 
+        		$this->getTemplateGroup('jb_tkjcontacts');
+	}  
+}
+
 ?>
