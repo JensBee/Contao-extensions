@@ -1,30 +1,40 @@
+<!-- indexer::stop -->
 <?php
-$mapId = 'jbloc_map_'.$this->map['id'];
-$mapJs = 'jbloc_gmap_'.$this->map['id'];
+// 
+// DO NOT SAVE WITHIN CONTAO!
+// HTML SPECIAL CHARS WILL BE LOST!
+//
+$mapId       = 'jbloc_map_'.$this->map['id'];
+$mapJs       = 'jbloc_gmap_'.$this->map['id'];
+$mapMarkerId = 'jbloc_marker_'.$this->map['id'];
+$mapTools    = 'jbloc_maptools_'.$this->map['id'];
 $out='';
 
-// main container
-$out .= '<div class="jbloc_map_container jbloc_map_inc_container block">';
+// helper functions & main container
+?>
+<script type="text/javascript" src="/system/modules/jb_locations/js/map_tools.js"></script>
+<div class="jbloc_map_container jbloc_map_inc_container block">
+<?php
 
 if ($this->map['headlineMap']) {
-	$out .= '<'.$this->map['headlineMap']['unit'].'>';
-	$out .= $this->map['headlineMap']['value'];
-	$out .= '</'.$this->map['headlineMap']['unit'].'>';
+  $out .= '<'.$this->map['headlineMap']['unit'].'>';
+  $out .= $this->map['headlineMap']['value'];
+  $out .= '</'.$this->map['headlineMap']['unit'].'>';
 }
 
 // map container
 $out.="\n";
 $out.='<div '.
-	'class="jbloc_map block" '.
-	'id="'.$mapId.'" '.
-	'style="'.
-		'width:'.$this->map['mapWidth'].';'.
-		'height:'.$this->map['mapHeight'].';'.
-		'display:block;'.
-		'margin-right:1em;'.
-		'float:left;'.
-		'"'.
-	'>';
+  'class="jbloc_map block" '.
+  'id="'.$mapId.'" '.
+  'style="'.
+    'width:'.$this->map['mapWidth'].';'.
+    'height:'.$this->map['mapHeight'].';'.
+    'display:block;'.
+    'margin-right:1em;'.
+    'float:left;'.
+    '"'.
+  '>';
 $out.="\n";
 
 /*
@@ -32,41 +42,44 @@ $out.="\n";
  */
 $out.='<noscript>'."\n";
 $out.='<img alt="Google maps" src="http://maps.google.com/staticmap?';
-$out.='&amp;size='.preg_replace('/px/','',$this->map['mapWidth']).'x'.preg_replace('/px/','',$this->map['mapHeight']);
-$out.='&amp;format=png';
+$out.='&size='.preg_replace('/px/','',$this->map['mapWidth']).'x'.preg_replace('/px/','',$this->map['mapHeight']);
+$out.='&format=png';
 if ($this->map['markerMap'] && sizeof($this->marker) > 0) {
-	$out.='&amp;markers=';
-	$intIconNum = 1;
-	for($i = 0; $i < sizeof($this->marker); $i++){
-       	$out.=preg_replace('/\s/','',$this->marker[$i]['coords']);
-       	$out.=','.$intIconNum;
-       	$intIconNum++;
-       	if($marker != end($this->marker)) {
-			$out.='|';
-       	}
-	}
+  $out.='&markers=';
+  $intIconNum = 1;
+  for($i = 0; $i < sizeof($this->marker); $i++){
+   $out.=preg_replace('/\s/','',$this->marker[$i]['coords']);
+   $out.=','.$intIconNum;
+   $intIconNum++;
+   if($marker != end($this->marker)) {
+      $out.='|';
+   }
+  }
 }    
-$out.='&amp;hl='.$this->map['language'];
-$out.='&amp;sensor='.$this->map['GPS'];
+$out.='&hl='.$this->map['language'];
+$out.='&sensor='.$this->map['GPS'];
+if ($this->map['zoom']) {
+  $out.='&zoom='.$this->map['zoom'];
+}
 //$out.='&maptype='.$this->view;
-$out.='&amp;key='.$this->map['key'];
+$out.='&key='.$this->map['key'];
 $out.='"/>';
 $out.="\n".'</noscript>'."\n";
 $out.='</div>'; // map container
 
 // marker container
-if ($this->map['markerExternal']) {
-	$out.='<div class="jbloc_map_marker block" style="float:left;">';
-	if ($this->map['headlineMarker']) {
-		$out .= '<'.$this->map['headlineMarker']['unit'].' class="s_small">';
-		$out .= $this->map['headlineMarker']['value'];
-		$out .= '</'.$this->map['headlineMarker']['unit'].'>';
-	}
-	// output external marker code
-	if ($this->map['markerExternal'] && sizeof($this->marker) > 0) {
-		$out .= $this->markerCode;
-	}
-	$out.='</div>'; // marker container
+if ($this->map['markerExternal'] && sizeof($this->marker) > 0) {
+  $out.='<div class="jbloc_map_marker block" style="float:left;">';
+  if ($this->map['headlineMarker']) {
+    $out .= '<'.$this->map['headlineMarker']['unit'].' class="s_small">';
+    $out .= $this->map['headlineMarker']['value'];
+    $out .= '</'.$this->map['headlineMarker']['unit'].'>';
+  }
+  // output external marker code
+  if ($this->map['markerExternal'] && sizeof($this->marker) > 0) {
+    $out .= $this->markerCode;
+  }
+  $out.='</div>'; // marker container
 }
 
 $out.='</div>'; // main container
@@ -75,105 +88,113 @@ $out.='</div>'; // main container
  * Dynamic map
  */
 $out.='<script '.
-	'src="http://maps.google.com/maps?'.
-	'&amp;file=api'.
-	'&amp;v=2'.
-	'&amp;key='.$this->map['key'].
-	'&amp;sensor='.$this->map['GPS'].
-	'&amp;hl='.$this->map['language'].
-	'" type="text/javascript"></script>';
+  'src="http://maps.google.com/maps/api/js?'.
+  '&key='.$this->map['key'].
+  '&sensor='.$this->map['GPS'].
+  '&hl='.$this->map['language'].
+  '" type="text/javascript"></script>';
 
-$out.="\n";
-$out.='<script type="text/javascript">'."\n";
-$out.='//<![CDATA['."\n";
-// declare map global for external markers
-$out.='var '.$mapJs.' = new GMap2(document.getElementById("'.$mapId.'"));';
+$out.='<script type="text/javascript">'."\n".'//<![CDATA['."\n";
 
-// configure map
-$out.='function load_'.$mapId.'() {';
-$out.='if (GBrowserIsCompatible()) {';
-// map types
-$out.= (in_array('normal', $this->map['mapTypes'])) ?
-	$mapJs.'.addMapType(G_NORMAL_MAP);' : $mapJs.'.removeMapType(G_NORMAL_MAP);';
-$out .= (in_array('satellite', $this->map['mapTypes'])) ?
-	$mapJs.'.addMapType(G_SATELLITE_MAP);' : $mapJs.'.removeMapType(G_SATELLITE_MAP);';
-$out .= (in_array('normal_satellite', $this->map['mapTypes'])) ?
-	$mapJs.'.addMapType(G_HYBRID_MAP);' : $mapJs.'.removeMapType(G_HYBRID_MAP);';
-$out .= (in_array('terrain', $this->map['mapTypes'])) ?
-	$mapJs.'.addMapType(G_PHYSICAL_MAP);' : $mapJs.'.removeMapType(G_PHYSICAL_MAP);';	
-// default map type
-switch ($this->map['mapTypeDefault']) {
-	case 'normal':
-		$out .= $mapJs.'.setMapType(G_NORMAL_MAP);';
-		break;
-	case 'satellite':
-		$out .= $mapJs.'.setMapType(G_SATELLITE_MAP);';
-		break;
-	case 'normal_satellite':
-		$out .= $mapJs.'.setMapType(G_HYBRID_MAP);';
-		break;
-	case 'terrain':
-		$out .= $mapJs.'.setMapType(G_PHYSICAL_MAP);';
-		break;
-}
-// map controller
-if ($this->map['controller']) {
-	switch ($this->map['controllerType']) {
-		case 'normal':
-			$out.=$mapJs.'.addControl(new GSmallMapControl());';
-			break;
-		case 'large':
-			$out.=$mapJs.'.addControl(new GLargeMapControl());';
-			break;
-	}
-}
-// map type switch
-if ($this->map['mapTypeSwitch'] && count($this->map['mapTypes']) > 1) {
-	$out.=$mapJs.'.addControl(new GMapTypeControl());';
-}
+// map class: start
+$out.='var mapClass_'.$mapId.'=undefined;';
+$out.='function '.$mapId.'() {'."\n";
+
+// declare map
+$out.="  this.mapTools = new MapTools_google({"."\n".
+    "    containerId:'".$mapId."',"."\n".
+    "    defaultMapType:'".$this->map['mapTypeDefault']."',"."\n".
+    "    allowedMapTypes:'".implode(",", $this->map['mapTypes'])."',"."\n".
+    "    center:'".($this->map['center'] ? implode(',', $this->map['center']) : '0,0')."',"."\n".
+    "    zoom:".($this->map['zoom'] ? $this->map['zoom'] : 'undefined').","."\n".
+    "    mapControl:'".$this->map['controllerType']."',"."\n".
+    "    switchMarkerOnClick:true,"."\n".
+    "    autoShowGeoXML:false,"."\n".
+"  });\n";
+
+$out.="  this.markerListId = document.getElementById('".$mapMarkerId."');\n";
+$out.="  var self=this;\n";
+
+// DUMP--|
+echo $out;
+$out='';
+// ------|
+?>
+
+  this.init = function() {
+    this.addMarker();
+  }
+  this.markerList_scrollTo = function(strId, active) {
+    if (active) {
+      var elTarget = $(strId);
+      elTarget.set('tween', {duration: 1500});
+      new Fx.Scroll($(this.markerListId)).toElement(elTarget).chain(function() {
+        elTarget.highlight('#FFDD55');
+      });
+    }
+  }
+
+<?php
+$out.='this.addMarker = function() {'."\n";
 // markers
 if ($this->map['markerMap'] && sizeof($this->marker) > 0) {
-	$arrMarkerDetails = array();
-	$out .= 'latlng = Array(); var latlngbounds = new GLatLngBounds();';
-	$intIconNum = 1;
-	for($i = 0; $i < sizeof($this->marker); $i++){
-		if ($this->marker[$i]['class']['icon']) {
-			$out .= 'var markerIcon = new GIcon();'.
-				'markerIcon.image = "'.$this->marker[$i]['class']['icon'].'";'.
-	        	'markerIcon.iconSize = new GSize('.$this->marker[$i]['class']['icon_width'].', '.$this->marker[$i]['class']['icon_height'].');'.
-				// set anchor to center bottom
-	        	'markerIcon.iconAnchor = new GPoint('.($this->marker[$i]['class']['icon_width']/2).', '.$this->marker[$i]['class']['icon_height'].');';	
-		} else {
-			$out .= 'var markerIcon = new GIcon(G_DEFAULT_ICON);'.
-	        	'markerIcon.image = "http://www.geocodezip.com/mapIcons/marker'.$intIconNum.'.png";';
-			$intIconNum++;
-		}
-		$out .=	'marker = new GLatLng('.$this->marker[$i]['coords'].');'.
-			'latlng.push(new GMarker('.
-				'marker,'.
-				'{icon:markerIcon}'.
-			'));'.
-			'latlngbounds.extend(marker);';
-	}
-	$out .= 'for (var i=0; i<latlng.length; i++) {'.
-		$mapJs.'.addOverlay(latlng[i]);'.
-		'}'.
-		$mapJs.'.setCenter(latlngbounds.getCenter(), '.$mapJs.'.getBoundsZoomLevel(latlngbounds));';
+  $arrMarkerDetails = array(); //?
+  $intIconNum = 1; //?
+  $intMarkerCurrent = 1; //?
+  $strMarkerTitle = '';
+  for($i = 0; $i < sizeof($this->marker); $i++){
+    if ($this->marker[$i]['class']['icons']) {
+      $out.= "var objMarker=this.mapTools.marker_add({\n".
+      $strMarkerCode = '';
+      foreach ($this->marker[$i]['class']['icons'] as $iconType => $iconData) {
+        switch($iconType) {
+            case 'default':
+                $strMarkerCode .= "icon:{";                 
+                break;
+            case 'alternate':
+                if (!$iconData['url']) continue(2);
+                $strMarkerCode .= "icon_alt:{";
+                break;
+            case 'shadow':
+                if (!$iconData['url']) continue(2);
+                $strMarkerCode .= "icon_shadow:{"; 
+                break;
+        }
+        $strMarkerCode .= "file:'".$iconData['url']."', ";
+        $strMarkerCode .= "width:'".$iconData['width']."', ";
+        $strMarkerCode .= "height:'".$iconData['height']."', ";
+        $strMarkerCode .= "anchor:'".$iconData['anchor_x'].",".$iconData['anchor_y']."',";
+        $strMarkerCode .= "},\n";
+      }
+      $strMarkerCode .="id:'".$mapId."_marker_".$i."',\n";
+      $strMarkerCode .="title:'".$this->marker[$i]['class']['title']."',\n";
+      $strMarkerCode .="coords:'".$this->marker[$i]['coords']."',\n";
+      $strMarkerCode .= "onClickFunc:function(active){self.markerList_scrollTo('".$mapId.'_markerBlock_'.$i."', active);},\n";
+      $strMarkerCode .= "});\n";
+      $out.=$strMarkerCode;
+    }
+  }
 }
-// zoom out one step to show markers that may be hidden under maptype-buttons
-if (sizeof($this->map['mapTypes']) > 1) {
-	$out .= $mapJs.'.zoomOut();';
-}
-$out.='}'; // GBrowserIsCompatible
-$out.='}'; // function load_
 
-// load map
-$out.='window.setTimeout("load_'.$mapId.'()", 500);';
-$out.="\n".'//]]>'."\n";
-$out.='</script>';
+// DUMP--|
+echo $out;
+$out='';
+// ------|
 
-// finished
-$out.="\n";
-
-echo '<!-- indexer::stop -->'.$out.'<!-- indexer::continue -->';
+// add map files (overlays)
+if ($this->map['files']) :
+  foreach ($this->map['files'] as $geoFile) :
 ?>
+var kml = this.mapTools.geoXML_add({file:'<?php echo $geoFile['file'];?>'});
+kml.set('suppressInfoWindows', true);
+<?php
+  endforeach;
+endif;
+?>
+this.mapTools.display();
+}} // addMarker + class
+// load map
+window.addEvent('domready', function() {mapClass_<?php echo $mapId;?> = new <?php echo $mapId;?>(); mapClass_<?php echo $mapId;?>.init();});
+//]]>
+</script>
+<!-- indexer::continue -->
