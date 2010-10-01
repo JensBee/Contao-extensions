@@ -87,7 +87,9 @@ $GLOBALS['TL_DCA']['tl_jblocations_maps']['palettes']['default'] =
 	'title;'.
 	'{mapheadlines_legend:hide},'.
 		'headline_map,'.
-		'headline_marker;'.
+		'headline_marker,'.
+		'headline_map_overwrite,'.
+		'headline_marker_overwrite;'.
 	'{mapmarkers_legend:hide},'.
 		'markers_show,'.
 		'markers_external_show;'.
@@ -134,6 +136,15 @@ $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['headline_marker'] = array (
 	'inputType'	=> 'inputUnit',
 	'options'	=> array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
 	'eval'		=> array('maxlength'=>255)
+);
+
+$GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['headline_map_overwrite'] = array (
+    'label'     => &$GLOBALS['TL_LANG']['tl_jblocations_maps']['headline_map_overwrite'],
+    'inputType' => 'checkbox',	
+);
+$GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['headline_marker_overwrite'] = array (
+    'label'     => &$GLOBALS['TL_LANG']['tl_jblocations_maps']['headline_marker_overwrite'],
+    'inputType' => 'checkbox',	
 );
 
 $GLOBALS['TL_DCA']['tl_jblocations_maps']['fields']['markers_show'] = array (

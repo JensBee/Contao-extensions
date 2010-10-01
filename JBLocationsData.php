@@ -28,31 +28,14 @@
  * @filesource
  */
 
-// Legends
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['description_legend'] = 'Kartenbeschreibung';
-
-// Fields
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['title']       = array('Titel', 'Titel des Ortes.');
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['description'] = array('Beschreibung', 'Beschreibung des Ortes.');
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['coords']      = array('Koordinaten', 'Koordinaten des Ortes.');
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['zoom']      	= array('Zoomstufe', 'Zoomstufe der Karte für die Einzeldarstellung des Ortes.');
-
-// Buttons
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['edit'] = array(
-    'Bearbeiten', 
-    'Daten des Ortes bearbeiten'
-);
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['copy'] = array(
-    'Kopieren', 
-    'Daten des Ortes kopieren'
-);
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['delete'] = array(
-    'Löschen', 
-    'Ort löschen'
-);
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['show'] = array(
-    'Anzeigen', 
-    'Daten des Ortes anzeigen'
-);
+/**
+ * Class JBLocationsData
+ *
+ * @copyright  Jens Bertram 2010 
+ * @author     Jens Bertram <code@jens-bertram.net>
+ * @package    Controller
+ */
+class JBLocationsData extends Frontend {
+}
 
 ?>

@@ -41,6 +41,10 @@ array_insert($GLOBALS['BE_MOD'], 1, array (
             'tables' => array('tl_jblocations_types'),
             'icon'   => 'system/modules/jb_locations/img/icon_location_types.png'
         ),
+        'jb_locations_data' => array (
+            'tables' => array('tl_jblocations_data'),
+            'icon'   => 'system/modules/jb_locations/img/icon_location_data.png'
+        ),
         'jb_locations_maps' => array (
             'tables' => array('tl_jblocations_maps'),
             'icon'   => 'system/modules/jb_locations/img/icon_location_maps.png'
@@ -81,5 +85,5 @@ $GLOBALS['TL_CTE']['includes']['jblocations_map'] = 'ContentJBLocationsMap';
  * Hooks
  */
 $GLOBALS['TL_HOOKS']['generateFrontendTemplate'][] = array('CalendarJBLocations', 'getEvent');
-
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('JBLocations', 'replaceJBLocationsInsertTags');
 ?>

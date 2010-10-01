@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_jblocations_coords'] = array (
 );
 
 // Palettes
-$GLOBALS['TL_DCA']['tl_jblocations_coords']['palettes']['default'] = 'title,coords;{description_legend:hide},description;';
+$GLOBALS['TL_DCA']['tl_jblocations_coords']['palettes']['default'] = 'title,coords,zoom;{description_legend:hide},description;';
 
 // Fields
 $GLOBALS['TL_DCA']['tl_jblocations_coords']['fields']['title'] = array (
@@ -89,6 +89,13 @@ $GLOBALS['TL_DCA']['tl_jblocations_coords']['fields']['title'] = array (
 	'search'                  => true,
 	'inputType'               => 'text',
 	'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_jblocations_coords']['fields']['zoom'] = array (
+    'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_coords']['zoom'],
+	'exclude'	=> true,
+	'inputType'	=> 'select',
+	'options'	=> array('0', '1','2','3','4','5','6','7','8','9','10'),	
 );
 
 $GLOBALS['TL_DCA']['tl_jblocations_coords']['fields']['description'] = array (

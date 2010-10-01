@@ -80,7 +80,23 @@ $GLOBALS['TL_DCA']['tl_jblocations_types'] = array (
 );
 
 // Palettes
-$GLOBALS['TL_DCA']['tl_jblocations_types']['palettes']['default'] = 'title,css_class;{icon_legend:hide},icon;{teaser_legend:hide},teaser;{details_legend:hide},details';
+$GLOBALS['TL_DCA']['tl_jblocations_types']['palettes']['default'] = 
+	'title,'.
+	'css_class;'.
+	'{icon_legend:hide},'.
+		'icon,'.
+		'icon_anchor_x,'.
+		'icon_anchor_y,'.
+		'icon_alt,'.
+		'icon_alt_anchor_x,'.
+		'icon_alt_anchor_y,'.
+		'icon_shadow,'.
+		'icon_shadow_anchor_x,'.
+		'icon_shadow_anchor_y;'.
+	'{teaser_legend:hide},'.
+		'teaser;'.
+	'{details_legend:hide},'.
+		'details';
 
 // Fields
 $GLOBALS['TL_DCA']['tl_jblocations_types']['fields'] = array (
@@ -95,6 +111,54 @@ $GLOBALS['TL_DCA']['tl_jblocations_types']['fields'] = array (
 		'exclude'	=> true,
 		'inputType'	=> 'fileTree',
 		'eval'      => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr')
+    ),
+    'icon_anchor_x' => array (
+    	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_types']['icon_anchor_x'],
+		'exclude'	=> true,
+		'inputType'	=> 'text',
+		'eval'      => array('tl_class'=>'w50', 'rgxp'=>'digit', 'nospace'=>true, )
+    ),
+    'icon_anchor_y' => array (
+    	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_types']['icon_anchor_y'],
+		'exclude'	=> true,
+		'inputType'	=> 'text',
+		'eval'      => array('tl_class'=>'w50', 'rgxp'=>'digit', 'nospace'=>true, )
+    ),
+    'icon_alt' => array (
+    	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_types']['icon_alt'],
+		'exclude'	=> true,
+		'inputType'	=> 'fileTree',
+		'eval'      => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr')
+    ),
+    'icon_alt_anchor_x' => array (
+    	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_types']['icon_anchor_x'],
+		'exclude'	=> true,
+		'inputType'	=> 'text',
+		'eval'      => array('tl_class'=>'w50', 'rgxp'=>'digit', 'nospace'=>true, )
+    ),
+    'icon_alt_anchor_y' => array (
+    	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_types']['icon_anchor_y'],
+		'exclude'	=> true,
+		'inputType'	=> 'text',
+		'eval'      => array('tl_class'=>'w50', 'rgxp'=>'digit', 'nospace'=>true, )
+    ),
+	'icon_shadow' => array (
+    	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_types']['icon_shadow'],
+		'exclude'	=> true,
+		'inputType'	=> 'fileTree',
+		'eval'      => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr')
+    ),
+    'icon_shadow_anchor_x' => array (
+    	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_types']['icon_anchor_x'],
+		'exclude'	=> true,
+		'inputType'	=> 'text',
+		'eval'      => array('tl_class'=>'w50', 'rgxp'=>'digit', 'nospace'=>true, )
+    ),
+    'icon_shadow_anchor_y' => array (
+    	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_types']['icon_anchor_y'],
+		'exclude'	=> true,
+		'inputType'	=> 'text',
+		'eval'      => array('tl_class'=>'w50', 'rgxp'=>'digit', 'nospace'=>true, )
     ),
 	'details' => array (
 		'label'     => &$GLOBALS['TL_LANG']['tl_jblocations_types']['details'],

@@ -28,31 +28,45 @@
  * @filesource
  */
 
-// Legends
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['description_legend'] = 'Kartenbeschreibung';
-
 // Fields
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['title']       = array('Titel', 'Titel des Ortes.');
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['description'] = array('Beschreibung', 'Beschreibung des Ortes.');
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['coords']      = array('Koordinaten', 'Koordinaten des Ortes.');
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['zoom']      	= array('Zoomstufe', 'Zoomstufe der Karte für die Einzeldarstellung des Ortes.');
+$GLOBALS['TL_LANG']['tl_jblocations_data']['title'] = array(
+	'Titel', 
+	'Titel des Ortes.');
+$GLOBALS['TL_LANG']['tl_jblocations_data']['category'] = array(
+	'Kategorie', 
+	'Kategorie der Daten.');
+$GLOBALS['TL_LANG']['tl_jblocations_data']['file'] = array(
+	'Datei', 
+	'Datei, die Daten für Karten enthält.');
+$GLOBALS['TL_LANG']['tl_jblocations_data']['filetype'] = array(
+	'Dateityp', 
+	'Typ, bzw. Format der Datendatei.');
+$GLOBALS['TL_LANG']['tl_jblocations_data']['locations_list'] = array(
+	'Ortsmarken', 
+	'Der Karte Ortsmarken hinzufügen.');
+$GLOBALS['TL_LANG']['tl_jblocations_data']['headline'] = array(
+	'Überschrift', 
+	'Überschrift der Kartendaten.');
+$GLOBALS['TL_LANG']['tl_jblocations_data']['description'] = array(
+	'Beschreibung', 
+	'Beschreibung der Kartendaten.');
 
 // Buttons
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['edit'] = array(
+$GLOBALS['TL_LANG']['tl_jblocations_data']['edit'] = array(
     'Bearbeiten', 
-    'Daten des Ortes bearbeiten'
+    'Details der Kartendaten bearbeiten'
 );
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['copy'] = array(
+$GLOBALS['TL_LANG']['tl_jblocations_data']['copy'] = array(
     'Kopieren', 
-    'Daten des Ortes kopieren'
+    'Kartendaten kopieren'
 );
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['delete'] = array(
+$GLOBALS['TL_LANG']['tl_jblocations_data']['delete'] = array(
     'Löschen', 
-    'Ort löschen'
+    'Kartendaten löschen'
 );
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['show'] = array(
+$GLOBALS['TL_LANG']['tl_jblocations_data']['show'] = array(
     'Anzeigen', 
-    'Daten des Ortes anzeigen'
+    'Kartendaten anzeigen'
 );
 
 ?>

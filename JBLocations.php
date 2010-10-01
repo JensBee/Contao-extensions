@@ -195,11 +195,12 @@ class JBLocations extends Frontend {
      * @return array Location details
      */
     public function getLocationDataArrayById($strLocationId) {
-        $objData = $this->getLocationDataById($strLocationId, 'title, description, coords');
+        $objData = $this->getLocationDataById($strLocationId, 'title, description, coords, zoom');
         return array (
         	'title' 		=> &$objData->title,
         	'description' 	=> &$objData->description,
-        	'coords'		=> &$objData->coords
+        	'coords'		=> &$objData->coords,
+        	'zoom'			=> &$objData->zoom,
         );
     }
 
@@ -224,7 +225,7 @@ class JBLocations extends Frontend {
      * @return array Location type details
      */
     public function getLocationTypeArrayById($strLocationTypeId, $strSelect='*', $limit='') {
-        $objData = $this->getLocationTypeById($strLocationTypeId, 'css_class,title,teaser,details,icon');
+        $objData = $this->getLocationTypeById($strLocationTypeId);
         if ($objData->icon) {
         	$arrIconSize = getimagesize($this->Environment->base.$objData->icon);
         	if ($arrIconSize !== false) {
@@ -233,14 +234,50 @@ class JBLocations extends Frontend {
         		$icon_height = $arrIconSize[1];
         	}
         }
+    	if ($objData->icon_alt) {
+        	$arrIconSize_alt = getimagesize($this->Environment->base.$objData->icon_alt);
+        	if ($arrIconSize_alt !== false) {
+        		$icon_alt = $this->Environment->base.$objData->icon_alt;
+        		$icon_alt_width = $arrIconSize_alt[0];
+        		$icon_alt_height = $arrIconSize_alt[1];
+        	}
+        }
+    	if ($objData->icon_shadow) {
+        	$arrIconSize_shadow = getimagesize($this->Environment->base.$objData->icon_shadow);
+        	if ($arrIconSize_shadow !== false) {
+        		$icon_shadow = $this->Environment->base.$objData->icon_shadow;
+        		$icon_shadow_width = $arrIconSize_shadow[0];
+        		$icon_shadow_height = $arrIconSize_shadow[1];
+        	}
+        }
         return array (
-			'css'       	=> &$objData->css_class,
-			'title'     	=> &$objData->title,
-			'teaser'    	=> &$objData->teaser,
-			'details'   	=> &$objData->details,
-        	'icon'			=> &$icon,
-        	'icon_width'	=> &$icon_width,
-        	'icon_height'	=> &$icon_height,
+			'css'       		=> &$objData->css_class,
+			'title'     		=> &$objData->title,
+			'teaser'    		=> &$objData->teaser,
+			'details'   		=> &$objData->details,
+        	'icons'				=> array(
+        		'default'	=> array(        		
+        			'url'		=> &$icon,
+        			'anchor_x'	=> &$objData->icon_anchor_x,
+        			'anchor_y'	=> &$objData->icon_anchor_y,
+        			'width'		=> &$icon_width,
+        			'height'	=> &$icon_height,
+        		),
+        		'alternate'	=> array(
+        			'url'		=> &$icon_alt,
+        			'anchor_x'	=> &$objData->icon_alt_anchor_x,
+        			'anchor_y'	=> &$objData->icon_alt_anchor_y,
+        			'width'		=> &$icon_alt_width,
+        			'height'	=> &$icon_alt_height,
+        		),
+        		'shadow'	=> array(        		
+        			'url'		=> &$icon_shadow,
+        			'anchor_x'	=> &$objData->icon_shadow_anchor_x,
+        			'anchor_y'	=> &$objData->icon_shadow_anchor_y,
+        			'width'		=> &$icon_shadow_width,
+        			'height'	=> &$icon_shadow_height,
+        		),
+        	),
         );
     }
     
@@ -288,6 +325,42 @@ class JBLocations extends Frontend {
         }
         return $objMap;
     }
+
+	/**
+	 * Compile location data into associative array	 
+	 * @param string Serialized location array
+	 * @return array Structured location data
+	 */
+	protected function compileLocations(&$strLocations) {	
+		$arrLocations = unserialize($strLocations);
+		$arrLocationData = array();
+		// loop through locations
+		for($i = 0; $i < sizeof($arrLocations); $i++){
+			$arrLocationData[$i] = $this->getLocationDataArrayById($arrLocations[$i][0]);
+			$arrLocationData[$i]['class'] =
+				$this->getLocationTypeArrayById($arrLocations[$i][1]);
+		}
+		return $arrLocationData;
+	}
+    
+	/**
+	 * Replace JBLocations inserttags
+	 * @param string
+	 * @return string
+	 */
+	public function replaceJBLocationsInsertTags($strTag) {
+		$elements = explode('::', $strTag);
+
+		if (strtolower($elements[0]) == 'jbloc_mapfile' && intval($elements[1]) && intval($elements[2])) {
+			$objPage = $this->Database->prepare("SELECT id, alias FROM tl_page WHERE id=?")
+				->limit(1)
+				->execute($elements[1]);
+			$strUrl = $this->generateFrontendUrl($objPage->fetchAssoc(), '/item/'.$elements[2]);
+	
+			return $strUrl;
+		}		
+		return false;
+	}    
 }
 
 ?>

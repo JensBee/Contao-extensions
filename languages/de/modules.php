@@ -42,6 +42,9 @@ $GLOBALS['TL_LANG']['MOD']['jb_locations_types'] = array(
 $GLOBALS['TL_LANG']['MOD']['jb_locations_maps'] = array(
 	'Karten', 
 	'Karten mit Orten verwalten.');
+$GLOBALS['TL_LANG']['MOD']['jb_locations_data'] = array(
+	'Kartendateien', 
+	'Dateien für Karten verwalten.');
 
 /**
  * Frontend modules

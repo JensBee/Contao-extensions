@@ -69,6 +69,18 @@ class JBLocationsMapGoogle extends JBLocationsMap {
 	 */
 	protected $boolHasMapTypeSwitch = true;
 
+	/**
+	 * Sets an attribute of this map
+	 * @param string The property name
+	 * @param mixed The property value
+	 * @return boolean True if successfull
+	 */
+    public function __set($strKey, $val) {
+    	if ($strKey == 'intMapZoom') {
+    		$this->$strKey = intval($val) * 2;
+    	}
+    }
+	
 	/*
 	 * Get the Google-Maps id
 	 * @return string Google-Maps id

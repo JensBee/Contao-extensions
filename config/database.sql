@@ -40,6 +40,7 @@ CREATE TABLE `tl_jblocations_coords` (
   `pid` int(10) unsigned NOT NULL default '0',
   `sorting` int(10) unsigned NOT NULL default '0',
   `tstamp` int(10) unsigned NOT NULL default '0',
+  `zoom` int(4) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `description` text NULL,
   `coords` varchar(128) NOT NULL default '',
@@ -67,6 +68,8 @@ CREATE TABLE `tl_jblocations_maps` (
   `map_type_default` varchar(255) NOT NULL default '',
   `headline_map` varchar(255) NOT NULL default '',
   `headline_marker` varchar(255) NOT NULL default '',
+  `headline_map_overwrite` char(1) NOT NULL default '',
+  `headline_marker_overwrite` char(1) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -84,6 +87,34 @@ CREATE TABLE `tl_jblocations_types` (
   `teaser` text NULL,
   `details` mediumtext NULL,
   `icon` varchar(255) NOT NULL default '',
+  `icon_anchor_x` int(4) unsigned NOT NULL default '0',
+  `icon_anchor_y` int(4) unsigned NOT NULL default '0',
+  `icon_alt` varchar(255) NOT NULL default '',
+  `icon_alt_anchor_x` int(4) unsigned NOT NULL default '0',
+  `icon_alt_anchor_y` int(4) unsigned NOT NULL default '0',
+  `icon_shadow` varchar(255) NOT NULL default '',
+  `icon_shadow_anchor_x` int(4) unsigned NOT NULL default '0',
+  `icon_shadow_anchor_y` int(4) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `pid` (`pid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- Table `tl_jblocation_data`
+-- 
+CREATE TABLE `tl_jblocations_data` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `pid` int(10) unsigned NOT NULL default '0',
+  `sorting` int(10) unsigned NOT NULL default '0',
+  `tstamp` int(10) unsigned NOT NULL default '0',
+  `title` varchar(255) NOT NULL default '',
+  `file` varchar(255) NOT NULL default '',  
+  `filetype` varchar(10) NOT NULL default '',
+  `category` varchar(255) NOT NULL default '',
+  `headline` varchar(255) NOT NULL default '',
+  `locations_published` char(1) NOT NULL default '',
+  `locations_list` blob NULL,
+  `description` mediumtext NULL,
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

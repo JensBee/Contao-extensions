@@ -69,6 +69,12 @@ $GLOBALS['TL_LANG']['tl_jblocations_maps']['map_types'] = array(
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['map_type_default'] = array(
     'Standard Kartentyp',
     'Legt fest, welche Darstellungsform bei der Anzeige der Karte gewählt wird.');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['headline_map_overwrite'] = array(
+    'Kartenüberschrift überschreiben erlaubern',
+    'Erlauben, anderen Datenquellen den Kartentitel zu ändern.');
+$GLOBALS['TL_LANG']['tl_jblocations_maps']['headline_marker_overwrite'] = array(
+    'Ortsmarkenüberschrift überschreiben erlaubern',
+    'Erlauben, anderen Datenquellen den Ortsmarkentitel zu ändern.');
 
 // Map types
 $GLOBALS['TL_LANG']['tl_jblocations_maps']['map_type_normal'] = 'Standardkarte';

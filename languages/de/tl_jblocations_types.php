@@ -28,17 +28,35 @@
  * @filesource
  */
 
-// Fields
+/**
+ * Fields & Legends
+ */
 $GLOBALS['TL_LANG']['tl_jblocations_types'] = array(
     'css_class' => array (
         'CSS-Klasse',
         'CSS-Klasse der Kategorie.'
     ),
+    'icon_legend' => 'Symbole',
     'icon' => array (
     	'Symbol',
     	'Dieser Kategorie ein festes Symbol für Karten zuweisen.'
     ),
-    'icon_legend' => 'Symbol',
+    'icon_alt' => array (
+    	'Alternierendes Symbol',
+    	'Dieser Kategorie ein weiteres Symbol für Hervorhebungen zuweisen.'
+    ),
+    'icon_shadow' => array (
+    	'Symbol-Schatten',
+    	'Ein Bild als Schatten für das Symbol festlegen.'
+    ),
+    'icon_anchor_x' => array (
+    	'Anker-X',
+    	'X-Ankerpunkt für das Symbol. Nullpunkt (0,0) ist oben links.'
+    ),
+    'icon_anchor_y' => array (
+    	'Anker-Y',
+    	'Y-Ankerpunkt für das Symbol. Nullpunkt (0,0) ist oben links.'
+    ),
     'details' => array (
         'Beschreibung',
         'Beschreibung der Kategorie.'

@@ -65,24 +65,6 @@ class ModuleJBLocationsMap extends Module {
 	}
 
 	/**
-	 * Compile location data into associative array	 
-	 * @param string Serialized location array
-	 * @return array Structured location data
-	 */
-	protected function compileLocations(&$strLocations) {	
-		$arrLocations = unserialize($strLocations);
-		$arrLocationData = array();
-		// loop through locations
-		for($i = 0; $i < sizeof($arrLocations); $i++){
-			$arrLocationData[$i] = $this->classJBLocations->
-				getLocationDataArrayById($arrLocations[$i][0]);
-			$arrLocationData[$i]['class'] =
-				$this->classJBLocations->getLocationTypeArrayById($arrLocations[$i][1]);
-		}
-		return $arrLocationData;
-	}
-	
-	/**
 	 * Generate module
 	 */
 	protected function compile() {
@@ -95,9 +77,21 @@ class ModuleJBLocationsMap extends Module {
 		$objMap = $this->classJBLocations->generateMap($this->id, $this->jblocations_map);
 		
 		if ($this->jblocations_published) {
-			$arrLocationData = $this->compileLocations($this->jblocations_list);
-			$objMap->addMarkers($arrLocationData);
+			$arrLocationData = $this->classJBLocations->compileLocations($this->jblocations_list);
+			if (sizeof($arrLocationData) == 1) {
+				$objMap->intMapZoom = $arrLocationData[0]['zoom'];
+			}
+			if (sizeof($arrLocationData) >= 1) {
+				$objMap->addMarkers($arrLocationData);
+			}
 		}
+		
+		// add map files
+		if ($this->Input->get('item')) {
+			$items = $this->Input->get('item');
+			$objMap->addFilesById($items);
+		}
+		
 		$objMap->compile();
 
 		$this->Template->map = array(

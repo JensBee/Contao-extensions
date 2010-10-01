@@ -67,7 +67,7 @@ class CalendarJBLocations extends JBLocations {
 	 * @param boolean If true only return published data
 	 * @return array Structured location data
 	 */
-	public function compileLocations($objEventData, $pid, $boolPublished=true) {
+	public function compileCalendarLocations($objEventData, $pid, $boolPublished=true) {
 		$jbLocations = new JBLocations();
 		$arrEventIds = array();
 		$arrEventLocations = array();
@@ -111,7 +111,7 @@ class CalendarJBLocations extends JBLocations {
 			if (!$objMapData->jblocations_map_published || $objMapData->jblocations_map <= 0) {				
 				return;
 			}
-			$arrEventData = $this->compileLocations(
+			$arrEventData = $this->compileCalendarLocations(
 				$this->getLocationListByEventId($objTemplate->id, 1),
 				$objTemplate->pid
 			);
