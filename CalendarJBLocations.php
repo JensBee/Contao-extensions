@@ -132,7 +132,7 @@ class CalendarJBLocations extends JBLocations {
 				} else {
 					// always show marker data on other views
 					$arrTemplateMap['marker'] = &$arrEventData['mapMarker'];
-				}
+				}				
 				$arrTemplateMap['map']['url'] = &$arrEventData['mapLink'];				
 				$objTemplate->jblocations = $arrTemplateMap;
 			}

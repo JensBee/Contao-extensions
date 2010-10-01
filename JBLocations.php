@@ -331,15 +331,15 @@ class JBLocations extends Frontend {
 	 * @param string Serialized location array
 	 * @return array Structured location data
 	 */
-	protected function compileLocations(&$strLocations) {	
+	public function compileLocations($strLocations) {	
 		$arrLocations = unserialize($strLocations);
 		$arrLocationData = array();
 		// loop through locations
-		for($i = 0; $i < sizeof($arrLocations); $i++){
-			$arrLocationData[$i] = $this->getLocationDataArrayById($arrLocations[$i][0]);
+		for($i = 0; $i < sizeof($arrLocations); $i++) {
+			$arrLocationData[$i] = $this->getLocationDataArrayById($arrLocations[$i][0]);			
 			$arrLocationData[$i]['class'] =
 				$this->getLocationTypeArrayById($arrLocations[$i][1]);
-		}
+		}	
 		return $arrLocationData;
 	}
     

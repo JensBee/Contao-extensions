@@ -75,7 +75,21 @@ class ModuleJBLocationsMap extends Module {
 		
 		$this->classJBLocations = new JBLocations();
 		$objMap = $this->classJBLocations->generateMap($this->id, $this->jblocations_map);
+				
+		// add map file settings
+		if ($this->Input->get('item')) {
+			$items = $this->Input->get('item');
+			$objMap->addFilesById($items);
+			$arrItemLocations = $objMap->getLocationListById('mapData', $items)->fetchAllAssoc();
+			foreach ($arrItemLocations as $arrItemLocation) {								
+				if ($arrItemLocation['locations_published']) {
+					$arrLocationData = $this->classJBLocations->compileLocations($arrItemLocation['locations_list']);
+					$objMap->addMarkers($arrLocationData);
+				}
+			}
+		}
 		
+		// add map settings
 		if ($this->jblocations_published) {
 			$arrLocationData = $this->classJBLocations->compileLocations($this->jblocations_list);
 			if (sizeof($arrLocationData) == 1) {
@@ -86,18 +100,11 @@ class ModuleJBLocationsMap extends Module {
 			}
 		}
 		
-		// add map files
-		if ($this->Input->get('item')) {
-			$items = $this->Input->get('item');
-			$objMap->addFilesById($items);
-		}
-		
 		$objMap->compile();
 
-		$this->Template->map = array(
-			'code' => $objMap->getMapCode()
+		$this->Template->map = array(			
+			'code' 	=> $objMap->getMapCode()
 		);
 	}
 }
-
 ?>

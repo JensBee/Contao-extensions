@@ -337,7 +337,7 @@ abstract class JBLocationsMap extends JBLocations {
 		$objTemplateMap = new FrontendTemplate($strTemplate);
 		$objTemplateMap->map = $this->arrCompiledMap;
 
-		if ($this->boolShowExternalMarker || $this->boolShowMarker) {
+		if ($this->boolShowExternalMarker || $this->boolShowMarker) {			
 			$objTemplateMap->marker = $this->arrMapMarkers;
 			if ($this->boolShowExternalMarker) {
 				$objTemplateMapMarker = new FrontendTemplate($strTemplateMarker);
@@ -346,10 +346,10 @@ abstract class JBLocationsMap extends JBLocations {
 					'height'	=> &$this->strMapHeight,
 					'id'		=> &$this->intMapId
 				);
-				$objTemplateMapMarker->marker = $this->arrMapMarkers;
+				$objTemplateMapMarker->marker = $this->arrMapMarkers;				
 				$objTemplateMap->markerCode = $objTemplateMapMarker->parse();
 			}
-		}
+		}		
 		return $objTemplateMap->parse();
 	}
 
@@ -414,6 +414,7 @@ abstract class JBLocationsMap extends JBLocations {
 		//'URLparams'     => &$this->strMapURLParams,
             'files'			=> &$mapFiles,
             'zoom'          => &$this->intMapZoom,
+			'center'		=> $this->getMarkersCenter(),
             'autoZoom'      => &$this->boolMapAutoZoom,
             'mapWidth'      => &$this->strMapWidth,
             'mapHeight'     => &$this->strMapHeight,
@@ -464,6 +465,81 @@ abstract class JBLocationsMap extends JBLocations {
 		$this->arrMapMarkers = $arrMarkers;
 	}
 
+	/**
+	 * Calculate the center for the set markers
+	 * @return array
+	 */
+	public function getMarkersCenter() {
+		if (!$this->arrMapMarkers || sizeof($this->arrMapMarkers) <= 0) return;
+		if (sizeof($this->arrMapMarkers) == 1) {
+			return explode(',',$this->arrMapMarkers[0]['coords']);
+		}
+		$arrCoordinates = array(
+			'lat' => array(),
+			'lng' => array()
+		);
+		foreach ($this->arrMapMarkers as $mapMarker) {
+			$arrCoords = explode(',',$mapMarker['coords']);
+			array_push($arrCoordinates['lat'], $arrCoords[0]);
+			array_push($arrCoordinates['lng'], $arrCoords[1]);
+		}
+		sort($arrCoordinates['lat'], SORT_NUMERIC);
+		sort($arrCoordinates['lng'], SORT_NUMERIC);
+
+		// calc center		
+		$arrRet = array(
+			( // latitude
+				floatval(end($arrCoordinates['lat'])) - 
+				(
+					(
+						floatval(end($arrCoordinates['lat'])) - floatval($arrCoordinates['lat'][0])
+					) 
+					/2
+				) 			
+			),
+			( // longtitude
+				floatval(end($arrCoordinates['lng'])) - 
+				(
+					(
+						floatval(end($arrCoordinates['lng'])) - floatval($arrCoordinates['lng'][0])
+					) 
+					/2
+				) 			
+			),
+		);
+		return $arrRet;
+	}
+	
+	/**
+	 * Get location data class & id
+	 * TODO: Unify other queries & rename table fields?
+	 * @param string Query type
+	 * @param string Location id or CSV list of ids to query for
+	 * @param integer Query result limit
+	 * @return object Database result
+	 */
+	public function getLocationListById($strType, $strId, $limit='') {
+		// validate input
+		$arrStrIds = explode(',', $strId);
+		$arrIntIds = array();
+		foreach ($arrStrIds as $strId) {
+			array_push($arrIntIds, intval($strId));
+		}
+		// query
+		switch ($strType) {
+			case 'event':				
+				$query = 'SELECT id, jblocations_list, jblocations_published FROM tl_calendar_events WHERE id IN ('.implode(',', $arrIntIds).')';
+				break;
+			case 'mapData':				
+				$query = 'SELECT id, locations_list, locations_published FROM tl_jblocations_data WHERE id IN ('.implode(',', $arrIntIds).')';
+				break;
+		}		
+		if ($limit) {
+			return $this->Database->prepare($query)->limit(intval($limit))->execute();
+		}
+		return $this->Database->prepare($query)->execute();
+	}
+	
 	/**
 	 * Add a file (overlay, etc. to the map)
 	 * @param array $arrMarkers
