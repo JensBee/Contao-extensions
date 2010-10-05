@@ -30,14 +30,14 @@
 
 
 /**
- * Class WizardJBLocations
+ * Class WizardJBLocationsLocationChooser
  *
  * Display lists of locations and location-types to select from
  * @copyright  Jens Bertram 2010 
  * @author     Jens Bertram <code@jens-bertram.net>
  * @package    Controller
  */
-class WizardJBLocations extends Widget {
+class WizardJBLocationsLocationChooser extends Widget {
 
 	/**
 	 * Templates
@@ -55,7 +55,7 @@ class WizardJBLocations extends Widget {
 	 * Content template
 	 * @var string
 	 */
-    protected $strWizardCalendarLocationsTemplate = 'be_jbloc_selector';
+    protected $strWizardLocationsTemplate = 'be_jbloc_selector';
 
 	/**
 	 * HTML select-boxes to display
@@ -204,7 +204,7 @@ class WizardJBLocations extends Widget {
 	 */
 	public function generate() {
         $strCommand = 'cmd_' . $this->strField;
-        $objTemplate = new BackendTemplate($this->strWizardCalendarLocationsTemplate);
+        $objTemplate = new BackendTemplate($this->strWizardLocationsTemplate);
 
 		if (is_array($GLOBALS['TL_JAVASCRIPT'])) {
 			array_insert($GLOBALS['TL_JAVASCRIPT'], 1, 'system/modules/jb_locations/js/wizard_jb_locations.js');

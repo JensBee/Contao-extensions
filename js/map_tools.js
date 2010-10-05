@@ -1,8 +1,8 @@
 function MapTools_google(oArgs) {
     // shotcuts
-    var self = this;
+    var self = this;   
     var GMaps = google.maps;
-
+    
     /* geo calculations */
     var objLatLngBounds = new GMaps.LatLngBounds();
 
@@ -24,15 +24,16 @@ function MapTools_google(oArgs) {
     this.bool_switchMarkerOnClick = true;
     // zoomlevel for map, if single marker is shown
     this.map_zoomLevel = 12;
-
+  	
     /**V3
      * Initialize class
      */
     this.init = function(oArgs) {
+    	console.log('maptools init');
         // check mandatory parameters
         if (!$defined(oArgs.containerId)) throw new Error('Required Parameter containerId not given');
         if (!$defined(oArgs.defaultMapType)) throw new Error('Required Parameter defaultMapType not given');
-        if (!$defined(oArgs.defaultMapType)) throw new Error('Required Parameter center not given');
+        if (!$defined(oArgs.center)) throw new Error('Required Parameter center not given');
 
         var arrCenter = oArgs.center.split(",");        
         this.bool_autoShowMarker = $defined(oArgs.autoShowMarker) ? oArgs.autoShowMarker : this.bool_autoShowMarker;
@@ -339,5 +340,6 @@ function MapTools_google(oArgs) {
         oKml.preserveViewport = $defined(oArgs.autoZoom) ? oArgs.autoZoom : false;
         return oKml;
     }
+    
     this.init(oArgs);
 }

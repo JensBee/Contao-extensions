@@ -56,6 +56,15 @@ class JBLocations extends Frontend {
 	 */
     protected $arrSupportedMapProviders = array(JBLocations::MAPPROVIDER_DEFAULT);
 
+	/**
+	 * Constructor
+	 * Load database object
+	 */
+	public function __construct() {
+		parent::__construct();
+		//$this->import('Database');
+	}
+    
     /**
      * Query for map provider API keys
      * @return array Query assoc
@@ -170,6 +179,7 @@ class JBLocations extends Frontend {
      * @param integer $intMapId The id for this map
      */
     protected function queryMapSettings($intMapId) {
+    	$this->import('Database');    	
     	return $this->Database->prepare('SELECT * FROM tl_jblocations_maps WHERE id=?')
 			->execute(intval($intMapId));
     }
@@ -298,18 +308,27 @@ class JBLocations extends Frontend {
 
     /**
      * Generate the map
+     * If both parameters are set: map settings will be queried.
+     * If $intMapSettings is undefined: $intMapId will be treated as map provider id.
      * @param integer Id for the map
      * @param integer Map provider
      */
     function generateMap($intMapId, $intMapSettings) {
-    	$objMapData = $this->queryMapSettings($intMapSettings);
-        // trigger default map as fallback, if needed
-        $this->queryMapProviders();
-        if (!in_array($objMapData->provider, $this->arrSupportedMapProviders)) {
-            $intMapProvider = JBLocations::MAPPROVIDER_DEFAULT;
-        }
+    	$intMapProvider = JBLocations::MAPPROVIDER_OSM;
+    	if (!$intMapSettings) {
+    		$intMapProvider = $intMapId;
+    	} else {
+    		$objMapData = $this->queryMapSettings($intMapSettings);
+        	// trigger default map as fallback, if needed
+        	$this->queryMapProviders();
+        	if (!in_array($objMapData->provider, $this->arrSupportedMapProviders)) {
+            	$intMapProvider = JBLocations::MAPPROVIDER_DEFAULT;
+        	} else {
+        		$intMapProvider = $objMapData->provider;
+        	}
+    	}
         // generate map
-        switch ($objMapData->provider) {
+        switch ($intMapProvider) {
             case JBLocations::MAPPROVIDER_GOOGLE:
                 $objMap = new JBLocationsMapGoogle($intMapId, $objMapData);                
                 break;

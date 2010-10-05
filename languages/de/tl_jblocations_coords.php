@@ -30,12 +30,26 @@
 
 // Legends
 $GLOBALS['TL_LANG']['tl_jblocations_coords']['description_legend'] = 'Kartenbeschreibung';
+$GLOBALS['TL_LANG']['tl_jblocations_coords']['map_legend'] = 'Koordinaten & Zoom';
 
 // Fields
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['title']       = array('Titel', 'Titel des Ortes.');
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['description'] = array('Beschreibung', 'Beschreibung des Ortes.');
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['coords']      = array('Koordinaten', 'Koordinaten des Ortes.');
-$GLOBALS['TL_LANG']['tl_jblocations_coords']['zoom']      	= array('Zoomstufe', 'Zoomstufe der Karte für die Einzeldarstellung des Ortes.');
+$GLOBALS['TL_LANG']['tl_jblocations_coords']['title'] = array(
+	'Titel', 
+	'Titel des Ortes.');
+$GLOBALS['TL_LANG']['tl_jblocations_coords']['description'] = array(
+	'Beschreibung', 
+	'Beschreibung des Ortes.');
+$GLOBALS['TL_LANG']['tl_jblocations_coords']['coords'] = array(
+	'Koordinaten', 
+	'Koordinaten des Ortes.');
+$GLOBALS['TL_LANG']['tl_jblocations_coords']['map'] = array(
+	'Koordinaten & Zoomstufe', 
+	'Mit Hilfe dieser Karte können Sie die Koordinaten und die Zoomstufe des Ortes festlegen. '.
+	'Verschieben sie dazu die Markierung und verändern sie ggf. die Zoomstufe. '.
+	'Auf der rechten Seite können Sie nach Orten suchen, um die Auswahl einzugrenzen.');
+$GLOBALS['TL_LANG']['tl_jblocations_coords']['zoom'] = array(
+	'Zoomstufe', 
+	'Zoomstufe der Karte für die Einzeldarstellung des Ortes.');
 
 // Buttons
 $GLOBALS['TL_LANG']['tl_jblocations_coords']['edit'] = array(

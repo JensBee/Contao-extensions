@@ -80,15 +80,20 @@ $GLOBALS['TL_DCA']['tl_jblocations_coords'] = array (
 );
 
 // Palettes
-$GLOBALS['TL_DCA']['tl_jblocations_coords']['palettes']['default'] = 'title,coords,zoom;{description_legend:hide},description;';
+$GLOBALS['TL_DCA']['tl_jblocations_coords']['palettes']['default'] = 'title;{map_legend},map,coords,zoom;{description_legend:hide},description;';
 
 // Fields
 $GLOBALS['TL_DCA']['tl_jblocations_coords']['fields']['title'] = array (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_jblocations_coords']['title'],
-	'exclude'                 => true,
-	'search'                  => true,
-	'inputType'               => 'text',
-	'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
+    'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_coords']['title'],
+	'exclude'   => true,
+	'search'    => true,
+	'inputType' => 'text',
+	'eval'      => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_jblocations_coords']['fields']['map'] = array (
+	'label'		=> &$GLOBALS['TL_LANG']['tl_jblocations_coords']['map'],
+	'inputType' => 'jb_locations_wizard_map',
 );
 
 $GLOBALS['TL_DCA']['tl_jblocations_coords']['fields']['zoom'] = array (
@@ -96,6 +101,7 @@ $GLOBALS['TL_DCA']['tl_jblocations_coords']['fields']['zoom'] = array (
 	'exclude'	=> true,
 	'inputType'	=> 'select',
 	'options'	=> array('0', '1','2','3','4','5','6','7','8','9','10'),	
+	'eval'      => array('tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_jblocations_coords']['fields']['description'] = array (
@@ -110,7 +116,7 @@ $GLOBALS['TL_DCA']['tl_jblocations_coords']['fields']['coords'] = array (
 	'label'     => &$GLOBALS['TL_LANG']['tl_jblocations_coords']['coords'],
 	'inputType' => 'text',
 	'search'    => false,
-	'eval'      => array('mandatory'=>true, 'maxlength'=>128),
+	'eval'      => array('mandatory'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 );
 
 ?>

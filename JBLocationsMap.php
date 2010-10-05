@@ -316,8 +316,8 @@ abstract class JBLocationsMap extends JBLocations {
 	 * Get the Maps key, if theres one needed
 	 * @return string Maps key
 	 */
-	protected function getMapKey() {
-		return '';
+	public function getMapKey() {
+		return;
 	}
 
 	/*

@@ -76,7 +76,7 @@ class JBLocationsMapOSM extends JBLocationsMap {
 	 * @param object A JBLocationsMap configuration object
 	 * @return string The map code
 	 */
-	public function getMapCode($strTemplate='jbloc_imap_osm') {
+	public function getMapCode($strTemplate='jbloc_imap_osm', $strTemplateMarker=null) {
 		$objTemplate = new FrontendTemplate($strTemplate);
 		$objTemplate->map = $this->arrCompiledMap;
 		$objTemplate->marker = $this->arrMapMarkers;

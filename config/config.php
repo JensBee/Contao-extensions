@@ -67,7 +67,8 @@ if (is_array($GLOBALS['BE_MOD']['content']['jb_eventstaff'])) {
 /**
  * Backend form fields
  */
-$GLOBALS['BE_FFL']['jb_locations_wizard'] = 'WizardJBLocations';
+$GLOBALS['BE_FFL']['jb_locations_wizard'] 		= 'WizardJBLocationsLocationChooser';
+$GLOBALS['BE_FFL']['jb_locations_wizard_map'] 	= 'WizardJBLocationsMapLocationChooser';
 
 /**
  * Frontend modules

@@ -85,7 +85,7 @@ class JBLocationsMapGoogle extends JBLocationsMap {
 	 * Get the Google-Maps id
 	 * @return string Google-Maps id
 	 */
-	protected function getMapKey() {
+	public function getMapKey() {
 		$rootPageDetails = $this->getPageDetails($this->getRootIdFromUrl());
 		if ($rootPageDetails->jblocations_map_google) {
 			return $rootPageDetails->jblocations_map_google;
