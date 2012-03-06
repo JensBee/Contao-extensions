@@ -1,0 +1,2 @@
+* different marker templates for each map provider to fit map interaction
+* use options-callback in tl_jblocations_maps.php
